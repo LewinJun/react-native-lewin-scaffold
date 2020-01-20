@@ -11,12 +11,12 @@ import {name as appName} from './app.json';
 
 import AppRouter from './src/routers'
 import bootstrap from './src/bootstrap'
-import { createAppContainer } from 'react-navigation';
+// import AppScreen from './src/routers/app'
 
 AppRegistry.registerComponent(appName, function AppProvider (initParams) {
   return function App () {
-    return bootstrap(createAppContainer(AppRouter), initParams)
+    return bootstrap(AppRouter, initParams)
   }
 })
-// AppRegistry.registerComponent(appName, () => AppRouter);
+// AppRegistry.registerComponent("AppName", () => App);
 

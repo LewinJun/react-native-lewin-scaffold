@@ -39,19 +39,20 @@ export const mainTabConfigs = {
   }
   
   export default ()=>{
-        return parseRouterConfigs(mainTabConfigs), {
-          tabBarPosition: 'bottom',
-          swipeEnabled: false,
-          animationEnabled: false,
-          tabBarOptions: {
-            showLabel: false,
-            style: {
-              backgroundColor: '#fff',
-              borderTopWidth: StyleSheet.hairlineWidth,
-              borderTopColor: '#e7e7e7'
-            }
+      const Tab = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
+        tabBarPosition: 'bottom',
+        swipeEnabled: false,
+        animationEnabled: false,
+        tabBarOptions: {
+          showLabel: false,
+          style: {
+            backgroundColor: '#fff',
+            borderTopWidth: StyleSheet.hairlineWidth,
+            borderTopColor: '#e7e7e7'
           }
         }
+      })
+    return Tab;
   }
   
   function generateTabIcon (text, icon) {

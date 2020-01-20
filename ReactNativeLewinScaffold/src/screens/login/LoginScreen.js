@@ -4,10 +4,10 @@ import {
     Text
 } from 'react-native'
 
-export default class MineScreen extends PureComponent {
+export default class LoginScreen extends PureComponent {
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: "red" }}>
                 <Text>登录</Text>
             </View>
         )

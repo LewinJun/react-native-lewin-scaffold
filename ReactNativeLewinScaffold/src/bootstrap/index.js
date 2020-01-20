@@ -20,9 +20,9 @@ export default function(App, initParams) {
     // )
     return (
         <Provider store={store}>
-            <PersistGate persistor={persistor} onBeforeLift={beforeRunApp}>
+            {/* <PersistGate persistor={persistor} onBeforeLift={beforeRunApp}> */}
                 <App/>
-            </PersistGate>
+            {/* </PersistGate> */}
         </Provider>
     )
 }
