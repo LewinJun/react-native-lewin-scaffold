@@ -6,7 +6,6 @@ import Home from '../screens/home'
 import Order from '../screens/order'
 import Mine from '../screens/mine'
 import { parseRouterConfigs } from '../helpers/react-navigation-helper'
-import { createAppContainer } from 'react-navigation'
 
 export const mainTabConfigs = {
     Home: {
@@ -36,23 +35,6 @@ export const mainTabConfigs = {
         }
       }
     }
-  }
-  
-  export default ()=>{
-      const Tab = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
-        tabBarPosition: 'bottom',
-        swipeEnabled: false,
-        animationEnabled: false,
-        tabBarOptions: {
-          showLabel: false,
-          style: {
-            backgroundColor: '#fff',
-            borderTopWidth: StyleSheet.hairlineWidth,
-            borderTopColor: '#e7e7e7'
-          }
-        }
-      })
-    return Tab;
   }
   
   function generateTabIcon (text, icon) {
