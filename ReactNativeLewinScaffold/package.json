@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
     "@expo/react-native-action-sheet": "^3.4.1",
     "@react-native-community/masked-view": "^0.1.6",
     "dva-core": "^1.4.0",
@@ -39,6 +40,16 @@
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.4",
     "react-test-renderer": "16.9.0"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
+    ]
   },
   "jest": {
     "preset": "react-native"

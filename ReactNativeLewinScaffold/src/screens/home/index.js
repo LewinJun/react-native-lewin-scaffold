@@ -5,7 +5,13 @@ import {
     Text
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
+const connectRedux = ({ user }) => ({
 
+    isLogin: user.isLogin
+
+  })
+@connect(connectRedux)
 export default class HomeScreen extends PureComponent {
 
     constructor (props) {
@@ -20,14 +26,16 @@ export default class HomeScreen extends PureComponent {
     }
 
     render() {
+        const { isLogin } = this.props
         return (
             <View style={{ flex: 1 }}>
                 <Text>首页</Text>
-                <TouchableOpacity onPress={()=>{
+                {isLogin ? null : <TouchableOpacity onPress={()=>{
                     this.toLogin()
                 }} style={{ marginTop: 150, width: 200, height: 50, alignItems: "center", justifyContent: "center" }}>
                     <Text>登录</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
+                
             </View>
         )
     }

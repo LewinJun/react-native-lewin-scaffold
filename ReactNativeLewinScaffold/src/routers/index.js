@@ -31,7 +31,10 @@ const TabBar = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
     }
   }
 })
+// 每个页面的screen配置
 const StackScreen = parseRouterConfigs(mainStackConfigs)
+
+// TabBar和页面的screen
 const StackNavigator = createStackNavigator({
     RootTab: { screen: TabBar, navigationOptions: {
         header: null} },
@@ -55,7 +58,7 @@ const StackNavigator = createStackNavigator({
           }
         })
       },
-      headerBackTitle: "",
+      headerBackTitleVisible: false,
       headerBackImage: <Image source={require('../assets/icons/back.png')} style={{  ...Platform.select({
         android: {
           marginLeft: -5
