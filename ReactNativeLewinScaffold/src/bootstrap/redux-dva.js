@@ -10,14 +10,15 @@ export default function createStore () {
 
     const onReducer = function (reducer) {
         reducer = persisteReducerEnhancer(reducer)
+        console.log("onReducer")
         return reducer
     }
 
-    const dva = create()
-    // const dva = create({
-    //     onAction: middlewares,
-    //     onReducer
-    // })
+    // const dva = create()
+    const dva = create({
+        onAction: middlewares,
+        onReducer
+    })
 
     models.forEach(function (model) { dva.model(model) })
     dva.start()

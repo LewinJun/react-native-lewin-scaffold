@@ -12,6 +12,7 @@ export const persisteReducerEnhancer = function (reducer) {
             whitelist: persistConfig.whitelist,
             debug: false,
             transforms: [],
-        }
+        },
+        reducer
     )
 }
