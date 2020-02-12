@@ -28,6 +28,15 @@ export default {
                 // toast(e.message)
             }
           },
+        * LOGOUT(_, { put, select }){
+          try {
+            yield put({ type: "UPDATE_LOGIN", payload: false })
+            
+        } catch (e) {
+          console.log(e)
+            // toast(e.message)
+        }
+        },
           APP_STARTED_WATCH: [
             function * CHECK_CUSTOMER_LOGIN_STATUS ({ take, put }) {
               while (true) {

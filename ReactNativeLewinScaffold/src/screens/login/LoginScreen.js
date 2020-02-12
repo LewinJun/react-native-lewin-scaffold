@@ -1,20 +1,20 @@
 import React, { PureComponent } from 'react'
 import {
     View,
+    TouchableOpacity,
     Text
 } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { dispatch } from '../../helpers/redux'
 
 export default class LoginScreen extends PureComponent {
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: "red" }}>
+            <View style={{ flex: 1, alignItems: "center" }}>
                 <Text>登录</Text>
                 <TouchableOpacity onPress={()=>{
                     dispatch({ type: "user/LOGIN" })
                 }}>
-                    <Text>登录啊</Text>
+                    <Text>点击登录，保持登录状态</Text>
                 </TouchableOpacity>
             </View>
         )

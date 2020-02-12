@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
 import {
     View,
-    
+    TouchableOpacity,
     Text
 } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+// import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
+import { dispatch } from '../../helpers/redux'
 const connectRedux = ({ user }) => ({
 
     isLogin: user.isLogin
@@ -22,7 +23,13 @@ export default class HomeScreen extends PureComponent {
 
     toLogin() {
         console.log("aaaaaaaa")
-        this.props.navigation.navigate('Login')
+        const { isLogin } = this.props
+        if (isLogin) {
+            dispatch({ type: "user/LOGOUT" })
+        } else {
+            this.props.navigation.navigate('Login')
+        }
+        
     }
 
     render() {
@@ -30,11 +37,12 @@ export default class HomeScreen extends PureComponent {
         return (
             <View style={{ flex: 1 }}>
                 <Text>首页</Text>
-                {isLogin ? null : <TouchableOpacity onPress={()=>{
+                
+                <TouchableOpacity onPress={()=>{
                     this.toLogin()
-                }} style={{ marginTop: 150, width: 200, height: 50, alignItems: "center", justifyContent: "center" }}>
-                    <Text>登录</Text>
-                </TouchableOpacity>}
+                }} style={{ alignItems: "center", justifyContent: "center" }}>
+                    <Text style={{ width: 200, height: 50,color: "red" }}>{isLogin ? "退出登录" : "登录"}</Text>
+                </TouchableOpacity>
                 
             </View>
         )

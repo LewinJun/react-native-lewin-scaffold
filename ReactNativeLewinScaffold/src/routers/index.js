@@ -6,7 +6,7 @@ import RootTab, { mainTabConfigs } from '../routers/tab-navigator'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { parseRouterConfigs } from '../helpers/react-navigation-helper'
 import mainStackConfigs from './screen-router'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, Dimensions } from 'react-native'
 import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
 
 export default class App extends Component {
