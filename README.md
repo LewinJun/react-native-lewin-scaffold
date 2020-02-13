@@ -21,11 +21,38 @@
 
 3. dva-core 1.4.0 版本
 
+> 参考src/bootstrap/redux-dva.js
+
+4. "@babel/plugin-proposal-decorators": "^7.8.3" redux和组件关联使用@connection快速关联，比传统的要方便很多
+
+```javascript
+const connectRedux = ({ user }) => ({
+    isLogin: user.isLogin
+  })
+@connect(connectRedux)
+export default class HomeScreen extends PureComponent {
+    render() {
+        const { isLogin } = this.props
+        return (
+            <View style={{ flex: 1 }}>
+                <Text>首页</Text>
+                <TouchableOpacity onPress={()=>{
+                }} style={{ alignItems: "center", justifyContent: "center" }}>
+                    <Text style={{ width: 200, height: 50,color: "red" }}>{isLogin ? "退出登录" : "登录"}</Text>
+                </TouchableOpacity>
+                
+            </View>
+        )
+}
+```
+
 ## 项目架构目录
 
 > 目录结构
 
 assets 资源
+
+
 
 ## 问题解决
 
