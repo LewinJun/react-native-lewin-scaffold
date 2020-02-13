@@ -1,4 +1,10 @@
-react-native 常用脚手架
+基于react native 0.61.5
+
+## 脚手架说明
+
+> redux+persist
+
+
 
 ## 问题解决
 
