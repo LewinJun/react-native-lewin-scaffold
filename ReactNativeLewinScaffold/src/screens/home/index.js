@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import {
     View,
     TouchableOpacity,
+    SafeAreaView,
     Text
 } from 'react-native'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -35,12 +36,13 @@ export default class HomeScreen extends PureComponent {
     render() {
         const { isLogin } = this.props
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+                <SafeAreaView/>
                 <Text>首页</Text>
                 
                 <TouchableOpacity onPress={()=>{
                     this.toLogin()
-                }} style={{ alignItems: "center", justifyContent: "center" }}>
+                }} style={{ marginTop: 20, alignItems: "center", justifyContent: "center" }}>
                     <Text style={{ width: 200, height: 50,color: "red" }}>{isLogin ? "退出登录" : "登录"}</Text>
                 </TouchableOpacity>
                 

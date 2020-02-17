@@ -18,5 +18,7 @@ AppRegistry.registerComponent(appName, function AppProvider (initParams) {
     return bootstrap(AppRouter, initParams)
   }
 })
-// AppRegistry.registerComponent("AppName", () => App);
+
+// react-native demo 默认的App.js 
+AppRegistry.registerComponent("TestApp", () => App);
 
