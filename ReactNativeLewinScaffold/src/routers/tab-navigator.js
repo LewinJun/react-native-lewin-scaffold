@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { createBottomTabNavigator } from 'react-navigation-tabs'
 import TabIcon from './TabIcon'
 import Home from '../screens/home'
 import Order from '../screens/order'
 import Mine from '../screens/mine'
-import { parseRouterConfigs } from '../helpers/react-navigation-helper'
-
+/**
+ * @author lewin 2020-02-17
+ * @description tab bar 一级页面 注册配置文件
+ */
 export const mainTabConfigs = {
     Home: {
       route: {

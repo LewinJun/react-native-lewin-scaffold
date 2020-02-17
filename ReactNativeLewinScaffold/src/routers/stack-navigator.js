@@ -4,8 +4,11 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { parseRouterConfigs } from '../helpers/react-navigation-helper'
 import mainStackConfigs from './screen-router'
 import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
-import LoginScreen from '../screens/login/LoginScreen'
-//parseRouterConfigs(mainStackConfigs)
+
+/**
+ * @author lewin 2020-02-17
+ * @description 页面路由配置文件注册到react-navigation，全局的header属性配置等
+ */
 export default createStackNavigator(
     parseRouterConfigs(mainStackConfigs),
     {

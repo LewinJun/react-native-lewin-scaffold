@@ -48,9 +48,61 @@ export default class HomeScreen extends PureComponent {
 
 ## 项目架构目录
 
-> 目录结构
+### 目录结构
 
-assets 资源
+>1. assets 资源
+
+>2. bootstrap app启动相关代码文件
+
+         index.js app启动的主入口，包含redux, persistor持久化
+
+         lifecycle.js app启动生命周期，核心的两个方法
+
+```javascript
+   /**
+    * 所有页面出现之前执行
+    * **不要添加网络请求相关操作，如果超时会导致应用一直等待在启动页**
+    */
+    export const beforeRunApp = async function () {
+
+    }
+
+    /**
+     * redux 数据还原后执行
+     */
+    export const afterRehydrated = async function () {
+        
+    }
+```
+
+        redux-dva.js 我们用的dva-core管理redux等第三方框架
+
+        redux-logger.js redux相关日志输出debug
+
+        redux-persist.js redux本地持久化配置
+
+> 3. components 自己自定义的一些组件目录
+
+> 4. configs 配置文件 目前有个redux持久化的配置文件persist.js，需要持久化的redux把namespace加入到白名单
+
+> 5. helpers 一些帮助类
+    
+         react-navigation-helper.js 路由跳转帮助类
+
+         redux-persist.js
+        
+         redux.js redux帮助类，如一些基本方法dispatch，getState
+
+> 6. models redux的models相关类文件
+
+> 7. routers react-navigation 相关页面和tabbar配置文件 具体相关类可以看头文件注释
+
+> 8. screens 所有的功能模块主页面
+
+
+
+> 热更新待加入， 将使用codepush
+
 
 
 
