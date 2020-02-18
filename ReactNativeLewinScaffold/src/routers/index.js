@@ -4,19 +4,32 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import RootTab, { mainTabConfigs } from '../routers/tab-navigator'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { parseRouterConfigs } from '../helpers/react-navigation-helper'
 import mainStackConfigs from './screen-router'
 import { StyleSheet, Image, Dimensions } from 'react-native'
 import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
+import NavigationHelper,{ parseRouterConfigs } from '../helpers/react-navigation-helper'
 
 export default class App extends Component {
-    render() {
-        return (
-            <AppScreen onNavigationStateChange={async (prevState, currentState) => {
-                console.log("currentState:" + currentState)
-            }}/>
-        )
+
+  constructor () {
+    super()
+    this.state = {
+      appState: ''
     }
+    this.navigatorRef = React.createRef()
+  }
+
+  componentDidMount(){
+    NavigationHelper.setTopLevelNavigator(this.navigatorRef.current)
+  }
+
+  render() {
+      return (
+          <AppScreen ref={this.navigatorRef} onNavigationStateChange={async (prevState, currentState) => {
+              console.log("currentState:" + currentState)
+          }}/>
+      )
+  }
 }
 const TabBar = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
   tabBarPosition: 'bottom',
@@ -37,17 +50,21 @@ const StackScreen = parseRouterConfigs(mainStackConfigs)
 // TabBar和页面的screen
 const StackNavigator = createStackNavigator({
     RootTab: { screen: TabBar, navigationOptions: {
-        header: null} },
+        headerShown: false} },
     ...StackScreen
 }, {
     initialRouteName: 'RootTab',
     defaultNavigationOptions: {
+      headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
       headerStyle: {
         backgroundColor: '#fff',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#e4e4e4',
         elevation: 0,
         shadowOpacity: 0
+      },
+      cardStyle: {
+        backgroundColor: '#fff'
       },
       headerTitleStyle: {
         color: '#222',
@@ -69,11 +86,9 @@ const StackNavigator = createStackNavigator({
       }) }} />,
       headerTintColor: '#444'
     },
-    cardStyle: {
-      backgroundColor: '#fff'
-    },
-    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, // 切换路由时水平动画
-    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
+    
   })
 
 const AppScreen = createAppContainer(StackNavigator)
+
+

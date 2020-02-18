@@ -8,6 +8,7 @@ import {
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import { dispatch } from '../../helpers/redux'
+import { push } from '../../helpers/react-navigation-helper'
 const connectRedux = ({ user }) => ({
 
     isLogin: user.isLogin
@@ -28,7 +29,8 @@ export default class HomeScreen extends PureComponent {
         if (isLogin) {
             dispatch({ type: "user/LOGOUT" })
         } else {
-            this.props.navigation.navigate('Login')
+            push('Login', {transition: "modal"})
+            // this.props.navigation.navigate('Login', {transition: "modal"})
         }
         
     }

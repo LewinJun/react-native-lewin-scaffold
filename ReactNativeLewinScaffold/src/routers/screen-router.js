@@ -1,5 +1,5 @@
 import Login from '../screens/login/LoginScreen'
-import RootTab from '../routers/tab-navigator'
+import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
 
 /**
  * @author lewin 2020-02-17
@@ -9,7 +9,8 @@ const mainStackConfigs = {
   
     Login: {
         route: {
-            screen: Login
+            screen: Login,
+            navigationOptions: {headerTitle: '登录', cardStyleInterpolator:(props)=> CardStyleInterpolators.forModalPresentationIOS(props)},
           }
     }
 }

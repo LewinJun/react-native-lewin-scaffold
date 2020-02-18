@@ -7,6 +7,12 @@ import {
 import { dispatch } from '../../helpers/redux'
 
 export default class LoginScreen extends PureComponent {
+    // static navigationOptions = function () {
+    //     return {
+    //       header: null,
+    //       cardStyleInterpolator:(props)=> CardStyleInterpolators.forModalPresentationIOS(props)
+    //     }
+    //   }
     render() {
         return (
             <View style={{ flex: 1, alignItems: "center" }}>

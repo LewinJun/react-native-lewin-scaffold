@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "@expo/react-native-action-sheet": "^3.4.1",
+    "@react-native-community/async-storage": "^1.8.0",
     "@react-native-community/masked-view": "^0.1.6",
     "dva-core": "^1.4.0",
     "invariant": "^2.2.4",
