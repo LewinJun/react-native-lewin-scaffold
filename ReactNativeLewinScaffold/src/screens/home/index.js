@@ -8,7 +8,8 @@ import {
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import { dispatch } from '../../helpers/redux'
-import { push } from '../../helpers/react-navigation-helper'
+import { push } from '../../helpers/react-navigation'
+import { ScrollView } from 'react-native-gesture-handler'
 const connectRedux = ({ user }) => ({
 
     isLogin: user.isLogin
@@ -29,8 +30,7 @@ export default class HomeScreen extends PureComponent {
         if (isLogin) {
             dispatch({ type: "user/LOGOUT" })
         } else {
-            push('Login', {transition: "modal"})
-            // this.props.navigation.navigate('Login', {transition: "modal"})
+            push('Login')
         }
         
     }
@@ -38,7 +38,8 @@ export default class HomeScreen extends PureComponent {
     render() {
         const { isLogin } = this.props
         return (
-            <View style={{ flex: 1, flexDirection: "column" }}>
+            <ScrollView>
+                <View style={{ flex: 1, flexDirection: "column" }}>
                 <SafeAreaView/>
                 <Text>首页</Text>
                 
@@ -49,6 +50,8 @@ export default class HomeScreen extends PureComponent {
                 </TouchableOpacity>
                 
             </View>
+            </ScrollView>
+            
         )
     }
 }

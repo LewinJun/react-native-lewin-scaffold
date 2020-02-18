@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import Login from '../screens/login/LoginScreen'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import RootTab, { mainTabConfigs } from '../routers/tab-navigator'
+import { mainTabConfigs } from '../routers/tab-navigator'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import mainStackConfigs from './screen-router'
 import { StyleSheet, Image, Dimensions } from 'react-native'
-import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
-import NavigationHelper,{ parseRouterConfigs } from '../helpers/react-navigation-helper'
+import { HeaderStyleInterpolators } from 'react-navigation-stack'
+import { parseRouterConfigs } from '../helpers/react-navigation-helper'
+import NavigationHelper from '../helpers/react-navigation'
+
 
 export default class App extends Component {
 
@@ -76,7 +77,7 @@ const StackNavigator = createStackNavigator({
         })
       },
       headerBackTitleVisible: false,
-      headerBackImage: <Image source={require('../assets/icons/back.png')} style={{  ...Platform.select({
+      headerBackImage: ()=><Image source={require('../assets/icons/back.png')} style={{  ...Platform.select({
         android: {
           marginLeft: -5
         },

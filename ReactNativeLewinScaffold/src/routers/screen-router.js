@@ -1,4 +1,5 @@
-import Login from '../screens/login/LoginScreen'
+import LoginIndex from '../screens/login'
+import Register from '../screens/register/RegisterScreen'
 import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
 
 /**
@@ -9,9 +10,14 @@ const mainStackConfigs = {
   
     Login: {
         route: {
-            screen: Login,
-            navigationOptions: {headerTitle: '登录', cardStyleInterpolator:(props)=> CardStyleInterpolators.forModalPresentationIOS(props)},
+            screen: LoginIndex,
+            navigationOptions: {headerTitle: '登录', cardStyleInterpolator:(props)=> CardStyleInterpolators.forVerticalIOS(props)},
           }
+    },
+    Register: {
+        route: {
+            screen: Register
+        }
     }
 }
 
