@@ -1,7 +1,4 @@
-import { NavigationActions, StackActions } from 'react-navigation'
-import { getState } from './redux'
 
-import mainStackConfigs from '../routers/screen-router'
 
 
 export const parseRouterConfigs = function (configs) {

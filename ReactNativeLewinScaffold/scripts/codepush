@@ -1,0 +1,112 @@
+#!/bin/sh
+# 部署应用
+DEPLOY_APP_IOS="reactNativeLewinScaffold"
+DEPLOY_APP_ANDROID="reactNativeLewinScaffoldAndroid"
+# 部署平台 All | iOS | Android
+DEPLOY_PLATFORM="All"
+# 部署类型 Staging | Production
+DEPLOY_TYPE="Staging"
+# 部署版本
+DEPLOY_VERSION=$(npx -c 'echo "$npm_package_version"' | grep -Eo '[0-9]+\.[0-9]+')
+# 部署描述
+DEPLOY_DESC=""
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do key="$1"
+case $key in
+  -h|--help)
+  echo "\
+codepush [...options] [description]
+ 
+example:
+bash ./codepush -s '[\"更新信息\",\"可以包含空 格\"]'
+
+options
+-s --staging           staging env
+-p --prod --production production env
+-v --version X.X       version
+-i --ios               ios only
+-a --android           android only
+-c --clean             clean history
+-h --help              help"
+  exit
+  ;;
+  -s|--staging)
+  DEPLOY_TYPE="Staging"
+  shift
+  ;;
+  -p|--prod|--production)
+  DEPLOY_TYPE="Production"
+  shift
+  ;;
+  -v|--version)
+  DEPLOY_VERSION="$2"
+  shift
+  shift
+  ;;
+  -i|--ios)
+  DEPLOY_PLATFORM="iOS"
+  shift
+  ;;
+  -a|--android)
+  DEPLOY_PLATFORM="Android"
+  shift
+  ;;
+  -c|--clean)
+  CLEAN=1
+  shift
+  ;;
+  *)
+  POSITIONAL+=("$1")
+  shift
+  ;;
+esac
+done
+set -- "${POSITIONAL[@]}"
+DEPLOY_DESC="$1"
+
+COMMAND=""
+if [[ $CLEAN -eq 1 ]]; then
+  # clean history
+  if [[ $DEPLOY_PLATFORM == "iOS" ]]; then
+    COMMAND="code-push deployment clear ${DEPLOY_APP_IOS} ${DEPLOY_TYPE}"
+  elif [[ $DEPLOY_PLATFORM == "Android" ]]; then
+    COMMAND="code-push deployment clear ${DEPLOY_APP_ANDROID} ${DEPLOY_TYPE}"
+  elif [[ $DEPLOY_PLATFORM == "All" ]]; then
+    COMMAND="\
+code-push deployment clear ${DEPLOY_APP_IOS} ${DEPLOY_TYPE} &&
+code-push deployment clear ${DEPLOY_APP_ANDROID} ${DEPLOY_TYPE}"
+  fi
+else
+# deploy
+  if [[ $DEPLOY_PLATFORM == "iOS" ]]; then
+    COMMAND="code-push release-react ${DEPLOY_APP_IOS} ios \
+--deploymentName ${DEPLOY_TYPE} \
+--targetBinaryVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}'"
+  elif [[ $DEPLOY_PLATFORM == "Android" ]]; then
+    COMMAND="code-push release-react ${DEPLOY_APP_ANDROID} android \
+--deploymentName ${DEPLOY_TYPE} \
+--targetBinaryVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}'"
+  elif [[ $DEPLOY_PLATFORM == "All" ]]; then
+    COMMAND="code-push release-react ${DEPLOY_APP_IOS}  ios \
+--deploymentName ${DEPLOY_TYPE} \
+--targetBinaryVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}' &&
+code-push release ${DEPLOY_APP_ANDROID} android \
+--deploymentName ${DEPLOY_TYPE} \
+--targetBinaryVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}'"
+  fi
+fi
+
+echo -e "\033[0;31m${COMMAND}\033[0m"
+
+read -p "确认执行?(y/n): " -n 1 -r
+printf "\n"
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+fi
+
+bash -c "$COMMAND"

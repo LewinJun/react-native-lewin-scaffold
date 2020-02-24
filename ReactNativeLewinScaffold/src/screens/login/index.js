@@ -5,7 +5,7 @@ import { dispatch } from '../../helpers/redux'
 
 export default class LoginIndex extends Component {
 
-    //warining screen-router.js 路由那里设置了title，这里无效,
+    //warining screen-router.js 路由这里设置了title，这里无效,
     static navigationOptions = {
         headerTitle: "登录啊"
     }
