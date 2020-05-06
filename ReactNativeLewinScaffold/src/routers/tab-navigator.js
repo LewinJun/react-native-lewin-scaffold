@@ -13,7 +13,7 @@ export const mainTabConfigs = {
         screen: Home,
         navigationOptions: {
           header: null,
-          tabBarIcon: generateTabIcon('行情', require('./icon/market.png'))
+          tabBarIcon: generateTabIcon('首页', require('./icon/market.png'))
         }
       }
     },
@@ -22,7 +22,7 @@ export const mainTabConfigs = {
         screen: Order,
         navigationOptions: {
           header: null,
-          tabBarIcon: generateTabIcon('币币', require('./icon/exchange.png'))
+          tabBarIcon: generateTabIcon('测试', require('./icon/exchange.png'))
         }
       }
     },

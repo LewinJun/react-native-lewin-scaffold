@@ -45,13 +45,26 @@ const TabBar = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
     }
   }
 })
+// 主页几个页面的头部配置选项
+TabBar.navigationOptions = ({ navigation }) => {
+  // 子页面可以通过props来设置
+  const { routeName, params } = navigation.state.routes[navigation.state.index];
+
+  // You can do whatever you like here to pick the title based on the route name
+  // const headerTitle = routeName;
+  const navigationOptions = (params && params.navigationOptions) || {}
+  return {
+    headerTitle: "",
+    ...navigationOptions
+  };
+};
+
 // 每个页面的screen配置
 const StackScreen = parseRouterConfigs(mainStackConfigs)
 
 // TabBar和页面的screen
 const StackNavigator = createStackNavigator({
-    RootTab: { screen: TabBar, navigationOptions: {
-        headerShown: false} },
+    RootTab: { screen: TabBar },
     ...StackScreen
 }, {
     initialRouteName: 'RootTab',

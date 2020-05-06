@@ -1,6 +1,7 @@
 import LoginIndex from '../screens/login'
 import Register from '../screens/register/RegisterScreen'
 import { CardStyleInterpolators, HeaderStyleInterpolators } from 'react-navigation-stack'
+import TestScreen from '../screens/mine/test'
 
 /**
  * @author lewin 2020-02-17
@@ -17,6 +18,11 @@ const mainStackConfigs = {
     Register: {
         route: {
             screen: Register
+        }
+    },
+    TestS: {
+        route: {
+            screen: TestScreen
         }
     }
 }
