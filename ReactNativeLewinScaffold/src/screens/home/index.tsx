@@ -26,7 +26,7 @@ const connectRedux = ({ user }) => ({
 @connect(connectRedux)
 export default class HomeScreen extends PureComponent<HomeProps, State> {
 
-    constructor (props) {
+    constructor (props : HomeProps) {
         super(props)
         
         this.toLogin = this.toLogin.bind(this)

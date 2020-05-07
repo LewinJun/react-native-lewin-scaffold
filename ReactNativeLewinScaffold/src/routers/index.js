@@ -8,7 +8,8 @@ import { StyleSheet, Image, Dimensions } from 'react-native'
 import { HeaderStyleInterpolators } from 'react-navigation-stack'
 import { parseRouterConfigs } from '../helpers/react-navigation-helper'
 import NavigationHelper from '../helpers/react-navigation'
-
+import RootModals from './modals'
+import { DeviceEventEmitter } from 'react-native'
 
 export default class App extends Component {
 
@@ -26,12 +27,30 @@ export default class App extends Component {
 
   render() {
       return (
-          <AppScreen ref={this.navigatorRef} onNavigationStateChange={async (prevState, currentState) => {
-              console.log("currentState:" + currentState)
-          }}/>
+        <React.Fragment>
+        <AppScreen ref={this.navigatorRef} onNavigationStateChange={async (prevState, currentState) => {
+            const currentScreen = getActiveRouteName(currentState)
+            this.currentScreen = currentScreen
+            DeviceEventEmitter.emit("pageChange", currentScreen)
+        }}/>
+        <RootModals />
+    </React.Fragment>
       )
   }
 }
+
+function getActiveRouteName (navigationState) {
+  if (!navigationState) {
+    return null
+  }
+  const route = navigationState.routes[navigationState.index]
+  // dive into nested navigators
+  if (route.routes) {
+    return getActiveRouteName(route)
+  }
+  return route.routeName
+}
+
 const TabBar = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
   tabBarPosition: 'bottom',
   swipeEnabled: false,

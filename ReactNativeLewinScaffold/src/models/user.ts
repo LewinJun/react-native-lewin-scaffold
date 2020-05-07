@@ -1,12 +1,30 @@
 
 import eventActions from './event.action'
 import { dispatch } from '../helpers/redux'
+import { Reducer, Effect } from './model'
 
 /**
  * @author lewin 2020-01-29
  * 用户相关model
  */
-export default {
+export interface UserState {
+  isLogin: boolean;
+}
+
+export interface UserModelType {
+  namespace: "user";
+  state: UserState;
+  effects: {
+    LOGIN: Effect;
+    LOGOUT: Effect;
+    APP_STARTED_WATCH: [Function, { type: "watcher" }]
+  },
+  reducers: {
+    UPDATE_LOGIN: Reducer<UserState>;
+  };
+}
+
+const UserModeal : UserModelType = {
     namespace: "user",
     state: {
         isLogin: false,
@@ -51,3 +69,5 @@ export default {
           ]
     }
 }
+
+export default UserModeal
