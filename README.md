@@ -1,5 +1,7 @@
 基于react native 0.61.5。react-native redux persist react-navigation code-push等集成的一款脚手架，开发新项目不用浪费前面的半天一天时间，快速开发新项目
 
+> 目前这个脚手架市场上已有app使用，安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html
+
 ## 脚手架说明
 
 1. redux+persist 状态管理和redux持久化
