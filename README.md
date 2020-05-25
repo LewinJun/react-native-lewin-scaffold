@@ -7,11 +7,11 @@
 
 使用oss下载速度
 
-![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/fast.gif?raw=true)
+![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/fast.gif)
 
 使用codepush文件下载
 
-![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/slow.gif?raw=true)
+![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/slow.gif)
 
 
 ## 脚手架说明
