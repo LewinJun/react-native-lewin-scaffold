@@ -4,6 +4,16 @@
 
 > 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
 
+
+使用oss下载速度
+
+![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/fast.gif?raw=true)
+
+使用codepush文件下载
+
+![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/slow.gif?raw=true)
+
+
 ## 脚手架说明
 
 1. redux+persist 状态管理和redux持久化
