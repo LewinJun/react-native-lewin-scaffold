@@ -5,7 +5,12 @@
 > 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
 
 
+
+> 相同网络条件，1.1MB oss下载1s内(测试的这个是0.6s)，而从codepush服务器下载 时间在 10s以上
+
+
 使用oss下载速度
+
 
 ![image](https://github.com/LewinJun/react-native-lewin-scaffold/blob/master/fast.gif)
 
