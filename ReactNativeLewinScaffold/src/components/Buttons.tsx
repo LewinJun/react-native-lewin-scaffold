@@ -1,21 +1,30 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native'
 import { ThemeColor } from '../utils/theme'
-import Svg, { Polyline, Polygon } from 'react-native-svg'
-import { View } from 'react-native'
+// import Svg, { Polyline, Polygon } from 'react-native-svg'
+
+export interface ButtonProps {
+    title?: string;
+    onPress?: () => void;
+    style?: any;
+    titleStyle?: any;
+    disabled?: boolean;
+    children?: any;
+    activeOpacity?: number;
+}
 
 
-export const BottomButton = ({ title, onPress, style, titleStyle, disabled, children, activeOpacity = 0.6 })=> {
+export const BottomButton = ({ title, onPress, style, titleStyle, disabled, children, activeOpacity = 0.6 }: ButtonProps) => {
     return (
         <TouchableOpacity activeOpacity={activeOpacity} onPress={onPress} style={[styles.btn, style, disabled ? { backgroundColor: "gray" } : null]} disabled={disabled}>
             {children}
             <Text style={[styles.btnTxt, titleStyle, disabled ? { color: "white" } : {}]}>{title}</Text>
-            
         </TouchableOpacity>
     )
 }
 
-export const ThemeButton = ({ title, onPress, style })=> {
+export const ThemeButton = ({ title, onPress, style }: ButtonProps) => {
+
     return (
         <TouchableOpacity activeOpacity={.6} onPress={onPress} style={[styles.themeBtn, style]}>
             <Text style={styles.themeBtnTxt}>{title}</Text>
@@ -23,7 +32,7 @@ export const ThemeButton = ({ title, onPress, style })=> {
     )
 }
 
-export const RadiusButton = ({ title, onPress, style })=> {
+export const RadiusButton = ({ title, onPress, style }: ButtonProps) => {
     return (
         <TouchableOpacity activeOpacity={.6} onPress={onPress} style={[styles.radiusBtn, style]}>
             <Text style={styles.radiusTxt}>{title}</Text>
@@ -31,35 +40,11 @@ export const RadiusButton = ({ title, onPress, style })=> {
     )
 }
 
-export const LeftSvgObliqueButton = ({ style, type = "left" | "right" ,width, height, children, onPress, oblique = 10, fill, stroke, strokeWidth = 0 }) => {
-    let points = "0,0 "+width+",0 "+(width - oblique*2)+","+height+" 0,"+height
-    if (type === "right") {
-        points = oblique*2 + ",0 "+width+",0 "+width+","+height+" "+"0,"+height
-    }
-    return <TouchableOpacity activeOpacity={.6} onPress={onPress} style={style}>
-        <Svg
-            height={height}
-            width={width}
-        >
-            <Polygon
-                points={points}  //多边形的每个角的x和y坐标
-                fill={fill}     //填充颜色
-                stroke={stroke || fill}   //外边框颜色
-                strokeWidth={strokeWidth}   //外边框宽度
-            />
-            
-        </Svg>
-        <View style={{ position: "absolute", width: width, height: height }}>
-        {children && children()}
-        </View>
-    </TouchableOpacity>
-}
-
 const styles = StyleSheet.create({
     btn: {
-        height: 44, 
-        backgroundColor: "#e59d3e", 
-        alignItems: "center", 
+        height: 44,
+        backgroundColor: "#e59d3e",
+        alignItems: "center",
         justifyContent: "center"
     },
     btnTxt: {
@@ -73,14 +58,14 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     themeBtnTxt: {
-        marginHorizontal: 15, 
+        marginHorizontal: 15,
         marginVertical: 8,
         fontSize: 14,
         fontWeight: "500",
         color: "white"
     },
     radiusBtn: {
-        alignItems: "center", 
+        alignItems: "center",
         justifyContent: "center",
         borderRadius: 20,
         borderColor: "#282828",

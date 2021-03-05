@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { mainTabConfigs } from '../routers/tab-navigator'
+import { mainTabConfigs } from './tab-navigator'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import mainStackConfigs from './screen-router'
 import { StyleSheet, Image, Dimensions } from 'react-native'
@@ -13,7 +13,7 @@ import { DeviceEventEmitter } from 'react-native'
 
 export default class App extends Component {
 
-  constructor () {
+  constructor() {
     super()
     this.state = {
       appState: ''
@@ -21,25 +21,25 @@ export default class App extends Component {
     this.navigatorRef = React.createRef()
   }
 
-  componentDidMount(){
+  componentDidMount() {
     NavigationHelper.setTopLevelNavigator(this.navigatorRef.current)
   }
 
   render() {
-      return (
-        <React.Fragment>
+    return (
+      <React.Fragment>
         <AppScreen ref={this.navigatorRef} onNavigationStateChange={async (prevState, currentState) => {
-            const currentScreen = getActiveRouteName(currentState)
-            this.currentScreen = currentScreen
-            DeviceEventEmitter.emit("pageChange", currentScreen)
-        }}/>
+          const currentScreen = getActiveRouteName(currentState)
+          this.currentScreen = currentScreen
+          DeviceEventEmitter.emit("pageChange", currentScreen)
+        }} />
         <RootModals />
-    </React.Fragment>
-      )
+      </React.Fragment>
+    )
   }
 }
 
-function getActiveRouteName (navigationState) {
+function getActiveRouteName(navigationState) {
   if (!navigationState) {
     return null
   }
@@ -83,44 +83,46 @@ const StackScreen = parseRouterConfigs(mainStackConfigs)
 
 // TabBar和页面的screen
 const StackNavigator = createStackNavigator({
-    RootTab: { screen: TabBar },
-    ...StackScreen
+  RootTab: { screen: TabBar },
+  ...StackScreen
 }, {
-    initialRouteName: 'RootTab',
-    defaultNavigationOptions: {
-      headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
-      headerStyle: {
-        backgroundColor: '#fff',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#e4e4e4',
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      cardStyle: {
-        backgroundColor: '#fff'
-      },
-      headerTitleStyle: {
-        color: '#222',
-        ...Platform.select({
-          android: {
-            width: Dimensions.get('window').width - 140,
-            textAlign: 'center'
-          }
-        })
-      },
-      headerBackTitleVisible: false,
-      headerBackImage: ()=><Image source={require('../assets/icons/back.png')} style={{  ...Platform.select({
+  initialRouteName: 'RootTab',
+  defaultNavigationOptions: {
+    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
+    headerStyle: {
+      backgroundColor: '#fff',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: '#e4e4e4',
+      elevation: 0,
+      shadowOpacity: 0
+    },
+    cardStyle: {
+      backgroundColor: '#fff'
+    },
+    headerTitleStyle: {
+      color: '#222',
+      ...Platform.select({
+        android: {
+          width: Dimensions.get('window').width - 140,
+          textAlign: 'center'
+        }
+      })
+    },
+    headerBackTitleVisible: false,
+    headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
+      ...Platform.select({
         android: {
           marginLeft: -5
         },
         ios: {
           marginLeft: 10
         }
-      }) }} />,
-      headerTintColor: '#444'
-    },
-    
-  })
+      })
+    }} />,
+    headerTintColor: '#444'
+  },
+
+})
 
 const AppScreen = createAppContainer(StackNavigator)
 
