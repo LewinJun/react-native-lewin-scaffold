@@ -2,8 +2,10 @@ import { create } from 'dva-core'
 import models from '../models'
 import { reduxLoggerMiddleware } from './redux-logger'
 import { persisteReducerEnhancer } from './redux-persist'
+import { createStore as createStoreRedux, combineReducers } from 'redux';
 
-export default function createStore () {
+
+export default function createStore() {
     const middlewares = [
         reduxLoggerMiddleware
     ].filter(function (middleware) { return typeof middleware === 'function' })
@@ -23,4 +25,5 @@ export default function createStore () {
     models.forEach(function (model) { dva.model(model) })
     dva.start()
     return dva._store
+    // return createStoreRedux(combineReducers({ 'user': models[0] }));
 }
