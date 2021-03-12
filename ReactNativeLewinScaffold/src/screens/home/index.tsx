@@ -1,4 +1,5 @@
 import { StackActions } from '@react-navigation/routers'
+import { StackNavigationOptions } from '@react-navigation/stack'
 import React, { PureComponent } from 'react'
 import {
     View,
@@ -8,6 +9,7 @@ import {
 } from 'react-native'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
+import { navigate } from '../../help/react-navigation'
 import { Props } from '../ScreenProps'
 
 interface HomeProps extends Props {
@@ -24,7 +26,6 @@ const connectRedux = ({ user }) => ({
 @connect(connectRedux)
 export default class HomeScreen extends PureComponent<HomeProps, State> {
 
-
     constructor(props: HomeProps) {
         super(props)
         this.toLogin = this.toLogin.bind(this)
@@ -38,12 +39,9 @@ export default class HomeScreen extends PureComponent<HomeProps, State> {
         if (isLogin) {
             this.props.dispatch({ type: "user/LOGOUT" })
         } else {
-            this.props.navigation.navigate('Login')
+            navigate('Login')
         }
-        // else {
-        //     this.props.dispatch({ type: "user/LOGIN" })
-        //     // push('Login')
-        // }
+
 
     }
 

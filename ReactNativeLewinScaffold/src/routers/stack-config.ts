@@ -1,6 +1,8 @@
 import { ParamListBase, RouteProp } from "@react-navigation/core";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 import Login from '../screens/login'
-import Home from '../screens/home'
+import RegisterScreen from '../screens/register/RegisterScreen'
+
 
 export interface ScreenOptions { }
 
@@ -18,13 +20,16 @@ export interface IStaskConfigItem {
 
 const StackConfig: Array<IStaskConfigItem> = [
     {
-        name: 'Home',
-        component: Home
+        name: 'Login',
+        component: Login,
+        options: {
+            cardStyleInterpolator: props => CardStyleInterpolators.forVerticalIOS(props),
+        }
     },
     {
-        name: 'Login',
-        component: Login
-    },
+        name: 'Register',
+        component: RegisterScreen
+    }
 ]
 
 export default StackConfig
