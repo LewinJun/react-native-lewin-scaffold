@@ -34,29 +34,54 @@ export default class HomeScreen extends PureComponent<HomeProps, State> {
         this.toLogin = this.toLogin.bind(this)
     }
 
-    toLogin() {
+    componentDidMount() {
+        this.props.navigation.setParams({
+            navigationOptions: {
+                headerTitle: "首页标题",
+                headerShown: true,
+            }
+        })
+    }
 
+    // 执行render之前的dom状态, state已更新
+    getSnapshotBeforeUpdate() {
+        return 0
+    }
+
+    //1：觉得Vistual Dom是否重
+    // 2：一般可以由PuerComponent自动实现
+    // 3：典型场景：性能优化
+    // shouldComponentUpdate() {
+    //     return true
+    // }
+
+    // 1：每次UI更新被调用
+    // 2：典型场景：页面通过props重新获取数据
+    componentDidUpdate() {
+
+    }
+
+    componentWillUnmount() {
+        // 即将卸载
+    }
+
+    // 错误处理
+    componentDidCatch(error, info) {
+
+    }
+
+    toLogin() {
         const { isLogin, isL } = this.props
         console.log("aaaaaaaa:%o ----isL:%o", isLogin, isL)
-
         if (isLogin) {
             dispatch({ type: "user/UPDATE_LOGIN", payload: false })
         } else {
             navigate('Login')
         }
-
-
-    }
-
-    componentDidMount() {
-        this.props.navigation.setParams({
-            navigationOptions: {
-                headerTitle: "首页标题"
-            }
-        })
     }
 
     render() {
+        console.log("home render")
         const { isLogin } = this.props
         return (
             <SafeAreaView style={{ flex: 1 }}>

@@ -83,7 +83,6 @@ project.ext.react = [
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
-
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -154,9 +153,11 @@ android {
     }
     buildTypes {
         debug {
+            resValue "string", "CodePushDeploymentKey", '""'
             signingConfig signingConfigs.debug
         }
         release {
+            resValue "string", "CodePushDeploymentKey", '"<INSERT_PRODUCTION_KEY>"'
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
             signingConfig signingConfigs.debug

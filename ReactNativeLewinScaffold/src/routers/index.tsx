@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, HeaderStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator, HeaderStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
 import Home from '../screens/home'
-import { View, Text, Image, Platform, Dimensions, StyleSheet } from "react-native";
+import { View, Text, Image, Platform, Dimensions, StyleSheet, StatusBar } from "react-native";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -17,37 +17,43 @@ import Order from '../screens/order'
 import Mine from '../screens/mine'
 import TabIcon from "./TabIcon";
 import { setTopLevelNavigator } from "../help/react-navigation";
-// import { reduxHelper } from "../help/redux";
-// import AsyncStorage from "@react-native-community/async-storage";
-// import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-// import persistCombineReducers from "redux-persist/es/persistCombineReducers";
-// import { PersistGate } from "redux-persist/integration/react";
-// import persist from "../configs/persist";
-// import { afterRehydrated, beforeRunApp } from "../appInit/redux-life";
-// import createStore1 from '../bootstrap/redux-dva'
-// import { persistHelper } from "../help/redux-persist";
 const Tab = createBottomTabNavigator();
 
+interface State {
+    tabNavigationOptions: any;
+}
 
-// const myPersistReducer = persistReducer(persist, combineReducers({ user: user, userM: userm }))
-// let store = reduxHelper(createStore(myPersistReducer));
-// const persistor = persistStore(store, null, afterRehydrated);
+export default class AppRouter extends Component<any, State> {
 
+    state = {
+        tabNavigationOptions: {}
+    }
 
-// const oldStore = reduxHelper(createStore1())
-// const persistor1 = persistHelper(persistStore(store, null, afterRehydrated))
+    componentDidMount() {
+        Platform.OS === "android"
+            ? StatusBar.setBackgroundColor("rgba(0,0,0,0)", true)
+            : null; //背景颜色是透明
+        Platform.OS === "android" ? StatusBar.setTranslucent(true) : null; //设置状态栏透明
+        StatusBar.setBarStyle('dark-content');
+    }
 
-
-
-export default class AppRouter extends Component {
     render() {
-
+        const { tabNavigationOptions } = this.state
         return (
-            // <Provider store={oldStore}>
-            //     <PersistGate persistor={persistor1} onBeforeLift={beforeRunApp}>
             <NavigationContainer ref={(e) => {
                 setTopLevelNavigator(e)
             }} onStateChange={(state) => {
+                const tabIndex = state?.routes[0].state?.index || 0
+                const { navigationOptions } = state?.routes[0].state?.routes[tabIndex].params || {}
+                const routeNames = state?.routes[0].state?.routeNames || []
+                let routeName = routeNames.length > tabIndex ? routeNames[tabIndex] : ''
+                if (state?.routes.length || 0 > 1) {
+                    const currenScreen = state?.routes[state?.routes.length - 1]
+                    routeName = currenScreen?.name
+                }
+                console.log("tabIndex-%i,--:%o---routeName:%s", tabIndex, navigationOptions, routeName)
+                const newOptions = navigationOptions || {}
+                // this.setState({ tabNavigationOptions: { ...newOptions } })
                 console.log("state:%o", state)
             }} onUnhandledAction={(action) => {
                 console.log("action:%o", action)
@@ -68,7 +74,7 @@ export default class AppRouter extends Component {
                         color: '#222',
                         ...Platform.select({
                             android: {
-                                width: Dimensions.get('window').width - 140,
+                                // width: Dimensions.get('window').width - 140,
                                 textAlign: 'center'
                             }
                         })
@@ -86,27 +92,28 @@ export default class AppRouter extends Component {
                     }} />,
                     headerTintColor: '#444'
                 })}>
-                    <RootStack.Screen name={'Root'} component={TabCom} />
+                    <RootStack.Screen name={'Root'} component={TabCom} options={({ route, navigation }) => {
+                        console.log(navigation)
+                        console.log(route)
+                        // TODO https://reactnavigation.org/docs/screen-options-resolution/#setting-parent-screen-options-based-on-child-navigators-state
+                        const index = route?.state?.index || 0
+                        const routes = route?.state?.routes || []
+                        const params = routes.length > 0 ? routes[index].params : {}
+                        const navConfig = params?.navigationOptions || {}
+                        return { ...navConfig }
+                    }} />
                     {StackConfig.map((item) => <RootStack.Screen {...item} key={item.name} />)}
                 </RootStack.Navigator>
             </NavigationContainer>
-            //     </PersistGate>
-
-            // </Provider>
         )
     }
 }
 
 class TabCom extends Component {
-    render() {
-        return <Tab.Navigator screenOptions={state => {
-            console.log(state)
-            return {
-                title: 'aaa',
 
-            }
-        }}>
-            <Tab.Screen name="Home" key={'home'} component={Home} options={() => ({
+    render() {
+        return <Tab.Navigator detachInactiveScreens>
+            <Tab.Screen name="Home" key={'Home'} component={Home} options={() => ({
                 tabBarIcon: generateTabIcon('首页', require('./icon/market.png')),
                 tabBarLabel: ''
             })} />

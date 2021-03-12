@@ -82,7 +82,7 @@ export const replace: NavigationFunc = (routeName: string, params = {}, action) 
  * @param  {Boolean} immediate
  */
 export const back = (key: string, immediate: boolean) =>
-  CommonActions.goBack()
+  _navigator?.dispatch(CommonActions.goBack())
 
 /**
  * pop
