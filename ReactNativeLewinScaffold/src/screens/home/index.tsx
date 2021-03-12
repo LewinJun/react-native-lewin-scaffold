@@ -10,18 +10,21 @@ import {
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import { navigate } from '../../help/react-navigation'
+import { dispatch } from '../../help/redux'
 import { Props } from '../ScreenProps'
 
 interface HomeProps extends Props {
     isLogin: boolean;
+    isL: boolean;
 }
 
 interface State {
 
 }
 
-const connectRedux = ({ user }) => ({
-    isLogin: user
+const connectRedux = ({ user, userm }) => ({
+    isLogin: user.isLogin,
+    isL: userm?.isLogin
 })
 @connect(connectRedux)
 export default class HomeScreen extends PureComponent<HomeProps, State> {
@@ -33,11 +36,11 @@ export default class HomeScreen extends PureComponent<HomeProps, State> {
 
     toLogin() {
 
-        const { isLogin } = this.props
-        console.log("aaaaaaaa:" + isLogin)
+        const { isLogin, isL } = this.props
+        console.log("aaaaaaaa:%o ----isL:%o", isLogin, isL)
 
         if (isLogin) {
-            this.props.dispatch({ type: "user/LOGOUT" })
+            dispatch({ type: "user/UPDATE_LOGIN", payload: false })
         } else {
             navigate('Login')
         }
