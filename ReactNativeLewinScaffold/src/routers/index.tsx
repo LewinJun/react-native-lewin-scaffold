@@ -5,6 +5,8 @@ import Home from '../screens/home'
 import { View, Text, Image, Platform, Dimensions, StyleSheet } from "react-native";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+
 import user from "../redux/user";
 import StackConfig from "./stack-config";
 
@@ -16,60 +18,73 @@ import Mine from '../screens/mine'
 import TabIcon from "./TabIcon";
 import { reduxHelper } from "../help/redux";
 import { setTopLevelNavigator } from "../help/react-navigation";
+import AsyncStorage from "@react-native-community/async-storage";
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import persistCombineReducers from "redux-persist/es/persistCombineReducers";
+import { PersistGate } from "redux-persist/integration/react";
+import persist from "../configs/persist";
 
 const Tab = createBottomTabNavigator();
 
-let store = reduxHelper(createStore(combineReducers({ user: user })));
+
+const myPersistReducer = persistReducer(persist, combineReducers({ user: user }))
+let store = reduxHelper(createStore(myPersistReducer));
+const persistor = persistStore(store);
+
+
 
 export default class AppRouter extends Component {
     render() {
 
         return (<Provider store={store}>
-            <NavigationContainer ref={(e) => {
-                setTopLevelNavigator(e)
-            }} onStateChange={(state) => {
-                console.log("state:%o", state)
-            }} onUnhandledAction={(action) => {
-                console.log("action:%o", action)
-            }}>
-                <RootStack.Navigator initialRouteName={'Root'} screenOptions={() => ({
-                    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
-                    headerStyle: {
-                        backgroundColor: '#fff',
-                        borderBottomWidth: StyleSheet.hairlineWidth,
-                        borderBottomColor: '#e4e4e4',
-                        elevation: 0,
-                        shadowOpacity: 0
-                    },
-                    cardStyle: {
-                        backgroundColor: '#fff'
-                    },
-                    headerTitleStyle: {
-                        color: '#222',
-                        ...Platform.select({
-                            android: {
-                                width: Dimensions.get('window').width - 140,
-                                textAlign: 'center'
-                            }
-                        })
-                    },
-                    headerBackTitleVisible: false,
-                    headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
-                        ...Platform.select({
-                            android: {
-                                marginLeft: -5
-                            },
-                            ios: {
-                                marginLeft: 10
-                            }
-                        })
-                    }} />,
-                    headerTintColor: '#444'
-                })}>
-                    <RootStack.Screen name={'Root'} component={TabCom} />
-                    {StackConfig.map((item) => <RootStack.Screen {...item} />)}
-                </RootStack.Navigator>
-            </NavigationContainer>
+            <PersistGate persistor={persistor}>
+                <NavigationContainer ref={(e) => {
+                    setTopLevelNavigator(e)
+                }} onStateChange={(state) => {
+                    console.log("state:%o", state)
+                }} onUnhandledAction={(action) => {
+                    console.log("action:%o", action)
+                }}>
+                    <RootStack.Navigator initialRouteName={'Root'} screenOptions={() => ({
+                        headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
+                        headerStyle: {
+                            backgroundColor: '#fff',
+                            borderBottomWidth: StyleSheet.hairlineWidth,
+                            borderBottomColor: '#e4e4e4',
+                            elevation: 0,
+                            shadowOpacity: 0
+                        },
+                        cardStyle: {
+                            backgroundColor: '#fff'
+                        },
+                        headerTitleStyle: {
+                            color: '#222',
+                            ...Platform.select({
+                                android: {
+                                    width: Dimensions.get('window').width - 140,
+                                    textAlign: 'center'
+                                }
+                            })
+                        },
+                        headerBackTitleVisible: false,
+                        headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: -5
+                                },
+                                ios: {
+                                    marginLeft: 10
+                                }
+                            })
+                        }} />,
+                        headerTintColor: '#444'
+                    })}>
+                        <RootStack.Screen name={'Root'} component={TabCom} />
+                        {StackConfig.map((item) => <RootStack.Screen {...item} />)}
+                    </RootStack.Navigator>
+                </NavigationContainer>
+            </PersistGate>
+
         </Provider>)
     }
 }
