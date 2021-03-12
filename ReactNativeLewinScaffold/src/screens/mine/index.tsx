@@ -5,7 +5,6 @@ import {
     Text
 } from 'react-native'
 import ParentScreen from '../ParentScreen'
-import { navigate } from '../../helpers/react-navigation'
 
 export default class MineScreen extends ParentScreen {
 
@@ -21,7 +20,7 @@ export default class MineScreen extends ParentScreen {
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <Text>我的</Text>
-                <TouchableOpacity style={{ marginTop: 20 }} onPress={()=> navigate('TestS')}>
+                <TouchableOpacity style={{ marginTop: 20 }} onPress={() => { }}>
                     <Text>test</Text>
                 </TouchableOpacity>
             </SafeAreaView>

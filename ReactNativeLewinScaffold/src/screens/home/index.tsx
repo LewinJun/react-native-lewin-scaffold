@@ -1,3 +1,4 @@
+import { StackActions } from '@react-navigation/routers'
 import React, { PureComponent } from 'react'
 import {
     View,
@@ -7,9 +8,6 @@ import {
 } from 'react-native'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
-import { dispatch } from '../../helpers/redux'
-import { push } from '../../helpers/react-navigation'
-import { NavigationScreenProp } from 'react-navigation'
 import { Props } from '../ScreenProps'
 
 interface HomeProps extends Props {
@@ -21,26 +19,32 @@ interface State {
 }
 
 const connectRedux = ({ user }) => ({
-    isLogin: user.isLogin
-  })
+    isLogin: user
+})
 @connect(connectRedux)
 export default class HomeScreen extends PureComponent<HomeProps, State> {
 
-    constructor (props : HomeProps) {
+
+    constructor(props: HomeProps) {
         super(props)
-        
         this.toLogin = this.toLogin.bind(this)
-      }
+    }
 
     toLogin() {
-        console.log("aaaaaaaa")
+
         const { isLogin } = this.props
+        console.log("aaaaaaaa:" + isLogin)
+
         if (isLogin) {
-            dispatch({ type: "user/LOGOUT" })
+            this.props.dispatch({ type: "user/LOGOUT" })
         } else {
-            push('Login')
+            this.props.navigation.navigate('Login')
         }
-        
+        // else {
+        //     this.props.dispatch({ type: "user/LOGIN" })
+        //     // push('Login')
+        // }
+
     }
 
     componentDidMount() {
@@ -57,16 +61,16 @@ export default class HomeScreen extends PureComponent<HomeProps, State> {
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1, flexDirection: "column" }}>
                     <Text>首页</Text>
-                    
-                    <TouchableOpacity onPress={()=>{
+
+                    <TouchableOpacity onPress={() => {
                         this.toLogin()
                     }} style={{ marginTop: 20, alignItems: "center", justifyContent: "center" }}>
-                        <Text style={{ width: 200, height: 50,color: "red" }}>{isLogin ? "退出登录" : "登录"}</Text>
+                        <Text style={{ width: 200, height: 50, color: "red" }}>{isLogin ? "退出登录" : "登录"}</Text>
                     </TouchableOpacity>
-                    
+
                 </View>
             </SafeAreaView>
-            
+
         )
     }
 }

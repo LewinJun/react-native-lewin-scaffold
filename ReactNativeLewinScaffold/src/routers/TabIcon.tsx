@@ -11,7 +11,7 @@ const TabIcon = ({ focused, text, icon }) => {
   const color = focused ? '#284DA3' : '#dddddd'
 
   return (
-    <View style={{alignItems: "center", justifyContent: "center"}}>
+    <View style={{ alignItems: "center", justifyContent: "center", marginTop: 15 }}>
       <Image source={icon} style={{ tintColor: color }} />
       <Text style={{ color }}>{text}</Text>
     </View>
