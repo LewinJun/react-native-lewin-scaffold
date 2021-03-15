@@ -1,4 +1,4 @@
-import { NavigationScreenProp, NavigationScreenConfig } from "react-navigation";
+import { NavigationScreenProp, NavigationScreenConfig } from "@react-navigation/native";
 import { StackNavigationOptions, StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 // StackNavigationOptions, StackNavigationProp
 // NavigationScreenConfig<
@@ -13,5 +13,5 @@ export interface NavigationOptions {
 }
 
 export interface Props {
-    navigation:   NavigationScreenProp<{}, NavigationOptions>
+    navigation: NavigationScreenProp<{}, NavigationOptions>
 }

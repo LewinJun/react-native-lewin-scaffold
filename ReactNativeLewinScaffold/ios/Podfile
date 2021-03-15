@@ -8,10 +8,10 @@ target 'ReactNativeLewinScaffold' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'ReactNativeLewinScaffoldTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  # target 'ReactNativeLewinScaffoldTests' do
+  #   inherit! :complete
+  #   # Pods for testing
+  # end
 
   # Enables Flipper.
   #
@@ -71,12 +71,12 @@ target 'ReactNativeLewinScaffold' do
   # use_native_modules!
 end
 
-target 'ReactNativeLewinScaffold-tvOS' do
-  # Pods for ReactNativeLewinScaffold-tvOS
+# target 'ReactNativeLewinScaffold-tvOS' do
+#   # Pods for ReactNativeLewinScaffold-tvOS
 
-  target 'ReactNativeLewinScaffold-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+#   target 'ReactNativeLewinScaffold-tvOSTests' do
+#     inherit! :search_paths
+#     # Pods for testing
+#   end
 
-end
+# end

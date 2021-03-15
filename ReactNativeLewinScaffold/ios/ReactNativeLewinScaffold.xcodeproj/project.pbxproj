@@ -18,9 +18,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ReactNativeLewinScaffoldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactNativeLewinScaffoldTests.m */; };
-		413D728DF5C66E43063F9589 /* libPods-ReactNativeLewinScaffold-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73961339995A4A0EA33BC111 /* libPods-ReactNativeLewinScaffold-tvOSTests.a */; };
 		5AB7AAB49F01DDC0EAF91340 /* libPods-ReactNativeLewinScaffold.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1580D517E4AF2561A8D752 /* libPods-ReactNativeLewinScaffold.a */; };
-		E5C0F6694E67AE3DB84B65A5 /* libPods-ReactNativeLewinScaffold-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3158ED1A63DF2588068AE5A /* libPods-ReactNativeLewinScaffold-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +36,6 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ReactNativeLewinScaffoldTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactNativeLewinScaffoldTests.m; sourceTree = "<group>"; };
 		0751678923FCDE1A00E3F111 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		0B892A6AE62BF51E77E5AB30 /* Pods-ReactNativeLewinScaffold-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffold-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffold-tvOSTests/Pods-ReactNativeLewinScaffold-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		0C1580D517E4AF2561A8D752 /* libPods-ReactNativeLewinScaffold.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeLewinScaffold.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* ReactNativeLewinScaffold.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativeLewinScaffold.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ReactNativeLewinScaffold/AppDelegate.h; sourceTree = "<group>"; };
@@ -56,13 +53,8 @@
 		3BFE5ED2643775425FA2203E /* libPods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C38FA9D219B077B1F14155 /* Pods-ReactNativeLewinScaffoldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffoldTests.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffoldTests/Pods-ReactNativeLewinScaffoldTests.debug.xcconfig"; sourceTree = "<group>"; };
 		45580D857614C92760D4FEEC /* Pods-ReactNativeLewinScaffold.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffold.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffold/Pods-ReactNativeLewinScaffold.release.xcconfig"; sourceTree = "<group>"; };
-		4DEC298976BAF43D4673998A /* Pods-ReactNativeLewinScaffold-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffold-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffold-tvOS/Pods-ReactNativeLewinScaffold-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		564BDC340B1E7A331978DD54 /* Pods-ReactNativeLewinScaffoldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffoldTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffoldTests/Pods-ReactNativeLewinScaffoldTests.release.xcconfig"; sourceTree = "<group>"; };
-		73961339995A4A0EA33BC111 /* libPods-ReactNativeLewinScaffold-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeLewinScaffold-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		851ABDEF727E9EEADB3DA930 /* Pods-ReactNativeLewinScaffold-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffold-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffold-tvOSTests/Pods-ReactNativeLewinScaffold-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		BBE0E6C869EE3A029C1E7AB8 /* Pods-ReactNativeLewinScaffold-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffold-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffold-tvOS/Pods-ReactNativeLewinScaffold-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CA04EC45A7F3E2516B7AA8B0 /* Pods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests/Pods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E3158ED1A63DF2588068AE5A /* libPods-ReactNativeLewinScaffold-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeLewinScaffold-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -80,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5C0F6694E67AE3DB84B65A5 /* libPods-ReactNativeLewinScaffold-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413D728DF5C66E43063F9589 /* libPods-ReactNativeLewinScaffold-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +124,6 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				0C1580D517E4AF2561A8D752 /* libPods-ReactNativeLewinScaffold.a */,
-				E3158ED1A63DF2588068AE5A /* libPods-ReactNativeLewinScaffold-tvOS.a */,
-				73961339995A4A0EA33BC111 /* libPods-ReactNativeLewinScaffold-tvOSTests.a */,
 				3BFE5ED2643775425FA2203E /* libPods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.a */,
 			);
 			name = Frameworks;
@@ -179,10 +167,6 @@
 			children = (
 				35C2CE375ABFDFD48A6F35A6 /* Pods-ReactNativeLewinScaffold.debug.xcconfig */,
 				45580D857614C92760D4FEEC /* Pods-ReactNativeLewinScaffold.release.xcconfig */,
-				BBE0E6C869EE3A029C1E7AB8 /* Pods-ReactNativeLewinScaffold-tvOS.debug.xcconfig */,
-				4DEC298976BAF43D4673998A /* Pods-ReactNativeLewinScaffold-tvOS.release.xcconfig */,
-				851ABDEF727E9EEADB3DA930 /* Pods-ReactNativeLewinScaffold-tvOSTests.debug.xcconfig */,
-				0B892A6AE62BF51E77E5AB30 /* Pods-ReactNativeLewinScaffold-tvOSTests.release.xcconfig */,
 				43C38FA9D219B077B1F14155 /* Pods-ReactNativeLewinScaffoldTests.debug.xcconfig */,
 				564BDC340B1E7A331978DD54 /* Pods-ReactNativeLewinScaffoldTests.release.xcconfig */,
 				CA04EC45A7F3E2516B7AA8B0 /* Pods-ReactNativeLewinScaffold-ReactNativeLewinScaffoldTests.debug.xcconfig */,
@@ -220,7 +204,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ReactNativeLewinScaffold-tvOS" */;
 			buildPhases = (
-				93336059536160AC3F7C74F2 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -240,7 +223,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ReactNativeLewinScaffold-tvOSTests" */;
 			buildPhases = (
-				2F8E559C70040B644D68B7EE /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -374,50 +356,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		2F8E559C70040B644D68B7EE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ReactNativeLewinScaffold-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		93336059536160AC3F7C74F2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ReactNativeLewinScaffold-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A625699AC600F4105FEC3747 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -609,7 +547,6 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BBE0E6C869EE3A029C1E7AB8 /* Pods-ReactNativeLewinScaffold-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -641,7 +578,6 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DEC298976BAF43D4673998A /* Pods-ReactNativeLewinScaffold-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -672,7 +608,6 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 851ABDEF727E9EEADB3DA930 /* Pods-ReactNativeLewinScaffold-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -700,7 +635,6 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B892A6AE62BF51E77E5AB30 /* Pods-ReactNativeLewinScaffold-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

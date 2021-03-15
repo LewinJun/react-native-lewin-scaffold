@@ -6,10 +6,10 @@ import { dispatch } from '../../help/redux'
 
 // import { navigate } from '../../helpers/react-navigation'
 // import { dispatch } from '../../helpers/redux'
-// const connectRedux = ({ user }) => ({
-//     isLogin: user
-// })
-// @connect(connectRedux)
+const connectRedux = ({ user }) => ({
+    isLogin: user.isLogin
+})
+@connect(connectRedux)
 export default class LoginIndex extends Component {
 
     //warining screen-router.js 路由这里设置了title，这里无效,
@@ -22,6 +22,7 @@ export default class LoginIndex extends Component {
     }
 
     render() {
+        console.log("isLogin:" + this.props.isLogin)
         return (
             <View style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}>
                 <TouchableOpacity onPress={() => {

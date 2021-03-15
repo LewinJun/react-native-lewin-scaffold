@@ -1,6 +1,6 @@
 import { StackActions } from '@react-navigation/routers'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import React, { PureComponent } from 'react'
+import React, { Component, PureComponent } from 'react'
 import {
     View,
     TouchableOpacity,
@@ -22,12 +22,11 @@ interface State {
 
 }
 
-const connectRedux = ({ user, userm }) => ({
+const connectRedux = ({ user }) => ({
     isLogin: user.isLogin,
-    isL: userm?.isLogin
 })
 @connect(connectRedux)
-export default class HomeScreen extends PureComponent<HomeProps, State> {
+export default class HomeScreen extends Component<HomeProps, State> {
 
     constructor(props: HomeProps) {
         super(props)
@@ -44,9 +43,9 @@ export default class HomeScreen extends PureComponent<HomeProps, State> {
     }
 
     // 执行render之前的dom状态, state已更新
-    getSnapshotBeforeUpdate() {
-        return 0
-    }
+    // getSnapshotBeforeUpdate() {
+    //     return 0
+    // }
 
     //1：觉得Vistual Dom是否重
     // 2：一般可以由PuerComponent自动实现
@@ -57,18 +56,18 @@ export default class HomeScreen extends PureComponent<HomeProps, State> {
 
     // 1：每次UI更新被调用
     // 2：典型场景：页面通过props重新获取数据
-    componentDidUpdate() {
+    // componentDidUpdate() {
 
-    }
+    // }
 
     componentWillUnmount() {
         // 即将卸载
     }
 
     // 错误处理
-    componentDidCatch(error, info) {
+    // componentDidCatch(error, info) {
 
-    }
+    // }
 
     toLogin() {
         const { isLogin, isL } = this.props

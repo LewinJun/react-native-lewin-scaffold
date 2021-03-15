@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { NavigationContainer } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, NavigationContainer, ParamListBase, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, HeaderStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
 import Home from '../screens/home'
 import { View, Text, Image, Platform, Dimensions, StyleSheet, StatusBar } from "react-native";
 import { Provider, connect } from 'react-redux';
-import { createStore, combineReducers, compose } from 'redux';
+// import { createStore, combineReducers, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
+import createStore from '../bootstrap/redux-dva'
 
-import user from "../redux/user";
-import StackConfig from "./stack-config";
+import StackConfig, { ScreenOptions } from "./stack-config";
 
 let RootStack = createStackNavigator();
 
@@ -17,11 +17,17 @@ import Order from '../screens/order'
 import Mine from '../screens/mine'
 import TabIcon from "./TabIcon";
 import { setTopLevelNavigator } from "../help/react-navigation";
+import { reduxHelper } from "../help/redux";
+import { persistHelper } from "../help/redux-persist";
+import { afterRehydrated, beforeRunApp } from "../bootstrap/lifecycle";
+import { PersistGate } from "redux-persist/integration/react";
 const Tab = createBottomTabNavigator();
 
 interface State {
     tabNavigationOptions: any;
 }
+const store = reduxHelper(createStore())
+const persistor = persistHelper(persistStore(store, null, afterRehydrated))
 
 export default class AppRouter extends Component<any, State> {
 
@@ -38,74 +44,97 @@ export default class AppRouter extends Component<any, State> {
     }
 
     render() {
-        const { tabNavigationOptions } = this.state
+
         return (
-            <NavigationContainer ref={(e) => {
-                setTopLevelNavigator(e)
-            }} onStateChange={(state) => {
-                const tabIndex = state?.routes[0].state?.index || 0
-                const { navigationOptions } = state?.routes[0].state?.routes[tabIndex].params || {}
-                const routeNames = state?.routes[0].state?.routeNames || []
-                let routeName = routeNames.length > tabIndex ? routeNames[tabIndex] : ''
-                if (state?.routes.length || 0 > 1) {
-                    const currenScreen = state?.routes[state?.routes.length - 1]
-                    routeName = currenScreen?.name
-                }
-                console.log("tabIndex-%i,--:%o---routeName:%s", tabIndex, navigationOptions, routeName)
-                const newOptions = navigationOptions || {}
-                // this.setState({ tabNavigationOptions: { ...newOptions } })
-                console.log("state:%o", state)
-            }} onUnhandledAction={(action) => {
-                console.log("action:%o", action)
-            }}>
-                <RootStack.Navigator initialRouteName={'Root'} screenOptions={() => ({
-                    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
-                    headerStyle: {
-                        backgroundColor: '#fff',
-                        borderBottomWidth: StyleSheet.hairlineWidth,
-                        borderBottomColor: '#e4e4e4',
-                        elevation: 0,
-                        shadowOpacity: 0
-                    },
-                    cardStyle: {
-                        backgroundColor: '#fff'
-                    },
-                    headerTitleStyle: {
-                        color: '#222',
-                        ...Platform.select({
-                            android: {
-                                // width: Dimensions.get('window').width - 140,
-                                textAlign: 'center'
-                            }
-                        })
-                    },
-                    headerBackTitleVisible: false,
-                    headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
-                        ...Platform.select({
-                            android: {
-                                marginLeft: -5
+            <Provider store={store}>
+                <PersistGate persistor={persistor} onBeforeLift={beforeRunApp}>
+                    <NavigationContainer ref={(e) => {
+                        setTopLevelNavigator(e)
+                    }} onStateChange={(state) => {
+                        const tabIndex = state?.routes[0].state?.index || 0
+                        const { navigationOptions } = state?.routes[0].state?.routes[tabIndex].params || {}
+                        const routeNames = state?.routes[0].state?.routeNames || []
+                        let routeName = routeNames.length > tabIndex ? routeNames[tabIndex] : ''
+                        if (state?.routes.length || 0 > 1) {
+                            const currenScreen = state?.routes[state?.routes.length - 1]
+                            routeName = currenScreen?.name
+                        }
+                        console.log("tabIndex-%i,--:%o---routeName:%s", tabIndex, navigationOptions, routeName)
+                        const newOptions = navigationOptions || {}
+                        // this.setState({ tabNavigationOptions: { ...newOptions } })
+                        console.log("state:%o", state)
+                    }} onUnhandledAction={(action) => {
+                        console.log("action:%o", action)
+                    }}>
+                        <RootStack.Navigator initialRouteName={'Root'} screenOptions={() => ({
+                            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
+                            headerStyle: {
+                                backgroundColor: '#fff',
+                                borderBottomWidth: StyleSheet.hairlineWidth,
+                                borderBottomColor: '#e4e4e4',
+                                elevation: 0,
+                                shadowOpacity: 0
                             },
-                            ios: {
-                                marginLeft: 10
-                            }
-                        })
-                    }} />,
-                    headerTintColor: '#444'
-                })}>
-                    <RootStack.Screen name={'Root'} component={TabCom} options={({ route, navigation }) => {
-                        console.log(navigation)
-                        console.log(route)
-                        // TODO https://reactnavigation.org/docs/screen-options-resolution/#setting-parent-screen-options-based-on-child-navigators-state
-                        const index = route?.state?.index || 0
-                        const routes = route?.state?.routes || []
-                        const params = routes.length > 0 ? routes[index].params : {}
-                        const navConfig = params?.navigationOptions || {}
-                        return { ...navConfig }
-                    }} />
-                    {StackConfig.map((item) => <RootStack.Screen {...item} key={item.name} />)}
-                </RootStack.Navigator>
-            </NavigationContainer>
+                            cardStyle: {
+                                backgroundColor: '#fff'
+                            },
+                            headerTitleStyle: {
+                                color: '#222',
+                                ...Platform.select({
+                                    android: {
+                                        // width: Dimensions.get('window').width - 140,
+                                        textAlign: 'center'
+                                    }
+                                })
+                            },
+                            headerBackTitleVisible: false,
+                            headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
+                                ...Platform.select({
+                                    android: {
+                                        marginLeft: -5
+                                    },
+                                    ios: {
+                                        marginLeft: 10
+                                    }
+                                })
+                            }} />,
+                            headerTintColor: '#444'
+                        })}>
+                            <RootStack.Screen name={'Root'} component={TabCom} options={({ route, navigation }) => {
+
+                                //  https://reactnavigation.org/docs/screen-options-resolution/#setting-parent-screen-options-based-on-child-navigators-state
+                                // const index = route?.state?.index || 0
+                                // const routes = route?.state?.routes || []
+                                // const params = routes.length > 0 ? routes[index].params : {}
+                                // const navConfig = params?.navigationOptions || {}
+                                // 以上是过时的做法
+                                const routeName = getFocusedRouteNameFromRoute(route)
+                                const options = routeName && TabItemOptions[routeName] ? TabItemOptions[routeName] : {}
+                                return { ...options }
+                            }} />
+                            {StackConfig.map((item) => <RootStack.Screen {...item} key={item.name} />)}
+                        </RootStack.Navigator>
+                    </NavigationContainer>
+                </PersistGate>
+            </Provider>
+
         )
+    }
+}
+
+const TabItemOptions: {
+    [key: string]: StackNavigationOptions
+} = {
+    "Home": {
+        headerTitle: "首页标题",
+        headerShown: true,
+    },
+    "Order": {
+        headerTitle: "测试标题",
+        headerShown: true,
+    },
+    "Mine": {
+        headerShown: false,
     }
 }
 
