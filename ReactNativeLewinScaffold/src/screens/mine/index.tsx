@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import {
     SafeAreaView,
+    View,
     TouchableOpacity,
     Text
 } from 'react-native'
