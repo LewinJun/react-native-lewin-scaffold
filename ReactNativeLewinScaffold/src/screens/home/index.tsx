@@ -114,7 +114,7 @@ export default class HomeScreen extends Component<HomeProps, State> {
 
 
                         </TouchableOpacity>
-                        <TextInput placeholder={'用户名'} />
+                        <TextInput placeholder={'用户名'} style={{ height: 50 }} />
                         <FlatList
                             refreshing={false}
                             onEndReached={() => {

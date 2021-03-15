@@ -19,8 +19,6 @@ export interface IStaskConfigItem {
     }) => ScreenOptions)
 }
 
-
-
 const StackConfig: Array<IStaskConfigItem> = [
     {
         name: 'Login',
