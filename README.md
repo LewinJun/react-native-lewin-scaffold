@@ -5,12 +5,15 @@
 
 > 目前这个脚手架市场上已有app使用
 
-1. 第一框应用：安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html  iOS应用商店 app链接: https://apps.apple.com/cn/app/%E4%BA%AB%E5%A4%9F%E8%9C%82%E5%BA%97/id1506141299
+1. 第一框应用享够蜂店：安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html  iOS应用商店 app链接: https://apps.apple.com/cn/app/%E4%BA%AB%E5%A4%9F%E8%9C%82%E5%BA%97/id1506141299
+> 分销平台，输入框很多的一个非常好的实例，包含微信支付和微信分享，原生Android+iOS+React Native+html三种混合开发,html集成了腾讯地图，RN webview加载html地图，html地图获取到经纬度等位置信息传递给RN webview
 
-2. 第二款应用： https://www.techdeal.cn/mobile-download 安卓: https://techdeal.oss-cn-shanghai.aliyuncs.com/app/techdeal-1.4.apk  iOS app store： https://apps.apple.com/us/app/techdeal/id1525133677
+2. 第二款应用TECHDEAL： https://www.techdeal.cn/mobile-download 安卓: https://techdeal.oss-cn-shanghai.aliyuncs.com/app/techdeal-1.4.apk  iOS app store： https://apps.apple.com/us/app/techdeal/id1525133677
+> 技术交易所，包含高德地图，websocket IM聊天(没用第三方平台，自己写的IM聊天系统)，原生Android+iOS+React Native+React(umi)三种混合开发
 
 
-3. 第三款应用: 安卓下载链接 https://cat-pay.oss-cn-beijing.aliyuncs.com/app/hellomimi_sign.apk iOS appstore: https://apps.apple.com/cn/app/%E5%93%88%E5%96%BD%E5%92%AA%E5%92%AA/id1547972757
+3. 第三款应用哈喽咪咪 : 安卓下载链接 https://cat-pay.oss-cn-beijing.aliyuncs.com/app/hellomimi_sign.apk iOS appstore: https://apps.apple.com/cn/app/%E5%93%88%E5%96%BD%E5%92%AA%E5%92%AA/id1547972757
+> 宠物一站式上门服务，宠物社交(视频，图片)，微信和支付宝支付，本机号码一键登录，微信分享(如有人需要可以联系我，我可以提供RN集成版出来)，原生Android+iOS+React Native+React(umi)三种混合开发
 
 
 > 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
