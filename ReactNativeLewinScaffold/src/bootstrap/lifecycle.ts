@@ -1,5 +1,8 @@
 import { codepushCheck } from "./codepush"
 import { config } from "../configs"
+import { dispatch } from "../help/redux"
+import { APP_INITIALIZE_ACTION } from "../models/crucial-actions"
+
 
 /**
  * 虽然文件名是声明周期，但是目前关注点都在启动过程，一下几个函数的含义是
@@ -12,7 +15,7 @@ import { config } from "../configs"
  * **不要添加网络请求相关操作，如果超时会导致应用一直等待在启动页**
  */
 export const beforeRunApp = async function () {
-    
+
 }
 
 /**
@@ -22,4 +25,5 @@ export const afterRehydrated = async function () {
 
     codepushCheck()
     console.log(config.CODEPUSH_KEY_IOS)
+    dispatch({ type: APP_INITIALIZE_ACTION })
 }

@@ -3,7 +3,7 @@ import models from '../models'
 import { reduxLoggerMiddleware } from './redux-logger'
 import { persisteReducerEnhancer } from './redux-persist'
 
-export default function createStore () {
+export default function createStore1() {
     const middlewares = [
         reduxLoggerMiddleware
     ].filter(function (middleware) { return typeof middleware === 'function' })

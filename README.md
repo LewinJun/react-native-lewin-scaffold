@@ -1,4 +1,4 @@
-基于react native 0.61.5。react-native redux persist react-navigation code-push等集成的一款脚手架，开发新项目不用浪费前面的半天一天时间，快速开发新项目
+基于react native 0.63.4。react-native redux persist react-navigation code-push等集成的一款脚手架，开发新项目不用浪费前面的半天一天时间，快速开发新项目
 
 ### 2.0版本脚手架在2.0分支 基于react native 0.63.4。react-native redux persist react-navigation 5.8 code-push等集成的一款脚手架，开发新项目不用浪费前面的半天一天时间，快速开发新项目   https://github.com/LewinJun/react-native-lewin-scaffold/tree/2.0
 

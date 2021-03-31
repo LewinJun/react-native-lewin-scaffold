@@ -1,129 +1,161 @@
-import React, { Component } from 'react'
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
-import { mainTabConfigs } from './tab-navigator'
-import { createBottomTabNavigator } from 'react-navigation-tabs'
-import mainStackConfigs from './screen-router'
-import { StyleSheet, Image, Dimensions } from 'react-native'
-import { HeaderStyleInterpolators } from 'react-navigation-stack'
-import { parseRouterConfigs } from '../helpers/react-navigation-helper'
-import NavigationHelper from '../helpers/react-navigation'
-import RootModals from './modals'
-import { DeviceEventEmitter } from 'react-native'
+import React, { Component } from "react";
+import { getFocusedRouteNameFromRoute, NavigationContainer, ParamListBase, RouteProp } from '@react-navigation/native';
+import { createStackNavigator, HeaderStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
+import Home from '../screens/home'
+import { View, Text, Image, Platform, Dimensions, StyleSheet, StatusBar } from "react-native";
+import { Provider, connect } from 'react-redux';
+// import { createStore, combineReducers, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import createStore from '../bootstrap/redux-dva'
 
-export default class App extends Component {
+import StackConfig, { ScreenOptions } from "./stack-config";
 
-  constructor() {
-    super()
-    this.state = {
-      appState: ''
+let RootStack = createStackNavigator();
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Order from '../screens/order'
+import Mine from '../screens/mine'
+import TabIcon from "./TabIcon";
+import { setTopLevelNavigator } from "../help/react-navigation";
+import { reduxHelper } from "../help/redux";
+import { persistHelper } from "../help/redux-persist";
+import { afterRehydrated, beforeRunApp } from "../bootstrap/lifecycle";
+import { PersistGate } from "redux-persist/integration/react";
+const Tab = createBottomTabNavigator();
+
+interface State {
+    tabNavigationOptions: any;
+}
+const store = reduxHelper(createStore())
+const persistor = persistHelper(persistStore(store, null, afterRehydrated))
+
+export default class AppRouter extends Component<any, State> {
+
+    state = {
+        tabNavigationOptions: {}
     }
-    this.navigatorRef = React.createRef()
-  }
 
-  componentDidMount() {
-    NavigationHelper.setTopLevelNavigator(this.navigatorRef.current)
-  }
+    componentDidMount() {
+        Platform.OS === "android"
+            ? StatusBar.setBackgroundColor("rgba(0,0,0,0)", true)
+            : null; //背景颜色是透明
+        Platform.OS === "android" ? StatusBar.setTranslucent(true) : null; //设置状态栏透明
+        StatusBar.setBarStyle('dark-content');
+    }
 
-  render() {
-    return (
-      <React.Fragment>
-        <AppScreen ref={this.navigatorRef} onNavigationStateChange={async (prevState, currentState) => {
-          const currentScreen = getActiveRouteName(currentState)
-          this.currentScreen = currentScreen
-          DeviceEventEmitter.emit("pageChange", currentScreen)
-        }} />
-        <RootModals />
-      </React.Fragment>
-    )
-  }
+    render() {
+
+        return (
+            <Provider store={store}>
+                <PersistGate persistor={persistor} onBeforeLift={beforeRunApp}>
+                    <NavigationContainer ref={(e) => {
+                        setTopLevelNavigator(e)
+                    }} onStateChange={(state) => {
+                        const tabIndex = state?.routes[0].state?.index || 0
+                        const routeNames = state?.routes[0].state?.routeNames || []
+                        let routeName = routeNames.length > tabIndex ? routeNames[tabIndex] : ''
+                        if (state?.routes.length || 0 > 1) {
+                            const currenScreen = state?.routes[state?.routes.length - 1]
+                            routeName = currenScreen?.name
+                        }
+                        console.log("tabIndex-%i,---routeName:%s", tabIndex, routeName)
+                        // this.setState({ tabNavigationOptions: { ...newOptions } })
+                        console.log("state:%o", state)
+                    }} onUnhandledAction={(action) => {
+                        console.log("action:%o", action)
+                    }}>
+                        <RootStack.Navigator initialRouteName={'Root'} screenOptions={() => ({
+                            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
+                            headerStyle: {
+                                backgroundColor: '#fff',
+                                borderBottomWidth: StyleSheet.hairlineWidth,
+                                borderBottomColor: '#e4e4e4',
+                                elevation: 0,
+                                shadowOpacity: 0
+                            },
+                            cardStyle: {
+                                backgroundColor: '#fff'
+                            },
+                            headerTitleStyle: {
+                                color: '#222',
+                                ...Platform.select({
+                                    android: {
+                                        // width: Dimensions.get('window').width - 140,
+                                        textAlign: 'center'
+                                    }
+                                })
+                            },
+                            headerBackTitleVisible: false,
+                            headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
+                                ...Platform.select({
+                                    android: {
+                                        marginLeft: -5
+                                    },
+                                    ios: {
+                                        marginLeft: 10
+                                    }
+                                })
+                            }} />,
+                            headerTintColor: '#444'
+                        })}>
+                            <RootStack.Screen name={'Root'} component={TabCom} options={({ route, navigation }) => {
+
+                                //  https://reactnavigation.org/docs/screen-options-resolution/#setting-parent-screen-options-based-on-child-navigators-state
+                                // const index = route?.state?.index || 0
+                                // const routes = route?.state?.routes || []
+                                // const params = routes.length > 0 ? routes[index].params : {}
+                                // const navConfig = params?.navigationOptions || {}
+                                // 以上是过时的做法
+                                const routeName = getFocusedRouteNameFromRoute(route)
+                                const options = routeName && TabItemOptions[routeName] ? TabItemOptions[routeName] : {}
+                                return { ...options }
+                            }} />
+                            {StackConfig.map((item) => <RootStack.Screen {...item} key={item.name} />)}
+                        </RootStack.Navigator>
+                    </NavigationContainer>
+                </PersistGate>
+            </Provider>
+
+        )
+    }
 }
 
-function getActiveRouteName(navigationState) {
-  if (!navigationState) {
-    return null
-  }
-  const route = navigationState.routes[navigationState.index]
-  // dive into nested navigators
-  if (route.routes) {
-    return getActiveRouteName(route)
-  }
-  return route.routeName
+const TabItemOptions: {
+    [key: string]: StackNavigationOptions
+} = {
+    "Home": {
+        headerTitle: "首页标题",
+        headerShown: true,
+    },
+    "Order": {
+        headerTitle: "测试标题",
+        headerShown: true,
+    },
+    "Mine": {
+        headerShown: false,
+    }
 }
 
-const TabBar = createBottomTabNavigator(parseRouterConfigs(mainTabConfigs), {
-  tabBarPosition: 'bottom',
-  swipeEnabled: false,
-  animationEnabled: false,
-  tabBarOptions: {
-    showLabel: false,
-    style: {
-      backgroundColor: '#fff',
-      borderTopWidth: StyleSheet.hairlineWidth,
-      borderTopColor: '#e7e7e7'
+class TabCom extends Component {
+
+    render() {
+        return <Tab.Navigator detachInactiveScreens>
+            <Tab.Screen name="Home" key={'Home'} component={Home} options={() => ({
+                tabBarIcon: generateTabIcon('首页', require('./icon/market.png')),
+                tabBarLabel: ''
+            })} />
+            <Tab.Screen name="Order" key={'Order'} component={Order} options={() => ({
+                tabBarIcon: generateTabIcon('测试', require('./icon/exchange.png')),
+                tabBarLabel: ''
+            })} />
+            <Tab.Screen name="Mine" key={'Mine'} component={Mine} options={() => ({
+                tabBarIcon: generateTabIcon('我的', require('./icon/account.png')),
+                tabBarLabel: ''
+            })} />
+        </Tab.Navigator>
     }
-  }
-})
-// 主页几个页面的头部配置选项
-TabBar.navigationOptions = ({ navigation }) => {
-  // 子页面可以通过props来设置
-  const { routeName, params } = navigation.state.routes[navigation.state.index];
+}
 
-  // You can do whatever you like here to pick the title based on the route name
-  // const headerTitle = routeName;
-  const navigationOptions = (params && params.navigationOptions) || {}
-  return {
-    headerTitle: "",
-    ...navigationOptions
-  };
-};
-
-// 每个页面的screen配置
-const StackScreen = parseRouterConfigs(mainStackConfigs)
-
-// TabBar和页面的screen
-const StackNavigator = createStackNavigator({
-  RootTab: { screen: TabBar },
-  ...StackScreen
-}, {
-  initialRouteName: 'RootTab',
-  defaultNavigationOptions: {
-    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit, // 切换路时 Header 动画
-    headerStyle: {
-      backgroundColor: '#fff',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: '#e4e4e4',
-      elevation: 0,
-      shadowOpacity: 0
-    },
-    cardStyle: {
-      backgroundColor: '#fff'
-    },
-    headerTitleStyle: {
-      color: '#222',
-      ...Platform.select({
-        android: {
-          width: Dimensions.get('window').width - 140,
-          textAlign: 'center'
-        }
-      })
-    },
-    headerBackTitleVisible: false,
-    headerBackImage: () => <Image source={require('../assets/icons/back.png')} style={{
-      ...Platform.select({
-        android: {
-          marginLeft: -5
-        },
-        ios: {
-          marginLeft: 10
-        }
-      })
-    }} />,
-    headerTintColor: '#444'
-  },
-
-})
-
-const AppScreen = createAppContainer(StackNavigator)
-
-
+function generateTabIcon(text, icon) {
+    return (props) => <TabIcon {...props} text={text} icon={icon} />
+}

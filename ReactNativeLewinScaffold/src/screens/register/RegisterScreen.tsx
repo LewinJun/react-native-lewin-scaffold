@@ -4,7 +4,7 @@ import {
     TouchableOpacity,
     Text
 } from 'react-native'
-import { pop, navigate } from '../../helpers/react-navigation'
+import { back, navigate, pop } from '../../help/react-navigation'
 
 export default class RegisterScreen extends PureComponent {
 
@@ -15,13 +15,13 @@ export default class RegisterScreen extends PureComponent {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: "white" }}>
-                <TouchableOpacity onPress={()=>{
-                    pop()
+                <TouchableOpacity onPress={() => {
+                    back()
                 }}>
                     <Text>返回登录</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{
-                    navigate("RootTab")
+                <TouchableOpacity onPress={() => {
+                    navigate("Home")
                 }} style={{ marginTop: 10 }}>
                     <Text>返回首页</Text>
                 </TouchableOpacity>

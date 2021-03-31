@@ -1,6 +1,6 @@
 import DeviceInfo from 'react-native-device-info'
 import compareVersion from 'compare-versions'
-import { getState } from '../helpers/redux'
+import { getState } from '../help/redux'
 
 const compare = (...args) => {
   try {
