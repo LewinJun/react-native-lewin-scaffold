@@ -1,9 +1,13 @@
 基于react native 0.63.4。react-native redux persist react-navigation code-push等集成的一款脚手架，开发新项目不用浪费前面的半天一天时间，快速开发新项目
 
-### 2.0版本脚手架在2.0分支 基于react native 0.63.4。react-native redux persist react-navigation 5.8 code-push等集成的一款脚手架，开发新项目不用浪费前面的半天一天时间，快速开发新项目   https://github.com/LewinJun/react-native-lewin-scaffold/tree/2.0
 
 
-> 目前这个脚手架市场上已有app使用，安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html  iOS应用商店 app链接: https://apps.apple.com/cn/app/%E4%BA%AB%E5%A4%9F%E8%9C%82%E5%BA%97/id1506141299
+
+> 目前这个脚手架市场上已有app使用，
+第一框应用：安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html  iOS应用商店 app链接: https://apps.apple.com/cn/app/%E4%BA%AB%E5%A4%9F%E8%9C%82%E5%BA%97/id1506141299
+
+第二款应用： https://www.techdeal.cn/mobile-download  iOS app store： https://apps.apple.com/us/app/techdeal/id1525133677
+第三款应用: 安卓下载链接 https://cat-pay.oss-cn-beijing.aliyuncs.com/app/hellomimi_sign.apk iOS appstore: https://apps.apple.com/cn/app/%E5%93%88%E5%96%BD%E5%92%AA%E5%92%AA/id1547972757
 
 > 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
 
@@ -36,16 +40,16 @@
 
 2. react-navigation 页面路由
 ```json
-    "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^2.0.15",
-    "react-navigation-tabs": "^2.7.0",
+    "@react-navigation/bottom-tabs": "^5.11.8",
+    "@react-navigation/native": "^5.9.3",
+    "@react-navigation/stack": "^5.14.3",
 ```
 
-3. dva-core 1.4.0 版本
+3. dva-core 2.0.4 版本
 
 > 参考src/bootstrap/redux-dva.js
 
-4. "@babel/plugin-proposal-decorators": "^7.8.3" redux和组件关联使用@connection快速关联，比传统的要方便很多
+4. "@babel/plugin-proposal-decorators": "^7.11.5" redux和组件关联使用@connection快速关联，比传统的要方便很多
 
 ```javascript
 const connectRedux = ({ user }) => ({
@@ -105,15 +109,15 @@ export default class HomeScreen extends PureComponent {
 
 > 3. components 自己自定义的一些组件目录
 
-> 4. configs 配置文件 目前有个redux持久化的配置文件persist.js，需要持久化的redux把namespace加入到白名单
+> 4. configs 配置文件 目前有个redux持久化的配置文件persist.ts，需要持久化的redux把namespace加入到白名单
 
-> 5. helpers 一些帮助类
+> 5. help 一些帮助类
     
-         react-navigation-helper.js 路由跳转帮助类
+         react-navigation.ts 路由跳转帮助类
 
-         redux-persist.js
+         redux-persist.ts
         
-         redux.js redux帮助类，如一些基本方法dispatch，getState
+         redux.ts redux帮助类，如一些基本方法dispatch，getState
 
 > 6. models redux的models相关类文件
 
@@ -123,7 +127,7 @@ export default class HomeScreen extends PureComponent {
 
 
 
-> 热更新待加入， 将使用codepush
+> 热更新,使用codepush
 
 
 

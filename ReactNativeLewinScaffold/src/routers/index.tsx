@@ -21,6 +21,7 @@ import { reduxHelper } from "../help/redux";
 import { persistHelper } from "../help/redux-persist";
 import { afterRehydrated, beforeRunApp } from "../bootstrap/lifecycle";
 import { PersistGate } from "redux-persist/integration/react";
+import CodePushModal from "../screens/other/CodePushModal";
 const Tab = createBottomTabNavigator();
 
 interface State {
@@ -113,6 +114,7 @@ export default class AppRouter extends Component<any, State> {
                             {StackConfig.map((item) => <RootStack.Screen {...item} key={item.name} />)}
                         </RootStack.Navigator>
                     </NavigationContainer>
+                    <CodePushModal />
                 </PersistGate>
             </Provider>
 
