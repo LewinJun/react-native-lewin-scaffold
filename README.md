@@ -16,7 +16,7 @@
 > 宠物一站式上门服务，宠物社交(视频，图片)，微信和支付宝支付，本机号码一键登录，微信分享(如有人需要可以联系我，我可以提供RN集成版出来)，原生Android+iOS+React Native+React(umi)三种混合开发
 
 
-> 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
+## 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
 
 
 
