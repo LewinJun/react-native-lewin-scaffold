@@ -47,11 +47,9 @@ export default class HomeScreen extends Component<HomeProps, State> {
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({
-            navigationOptions: {
-                headerTitle: "首页标题",
-                headerShown: true,
-            }
+        this.props.navigation.setOptions({
+            headerTitle: "首页标题",
+            headerShown: true,
         })
     }
 

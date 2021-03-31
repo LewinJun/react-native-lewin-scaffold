@@ -52,15 +52,13 @@ export default class AppRouter extends Component<any, State> {
                         setTopLevelNavigator(e)
                     }} onStateChange={(state) => {
                         const tabIndex = state?.routes[0].state?.index || 0
-                        const { navigationOptions } = state?.routes[0].state?.routes[tabIndex].params || {}
                         const routeNames = state?.routes[0].state?.routeNames || []
                         let routeName = routeNames.length > tabIndex ? routeNames[tabIndex] : ''
                         if (state?.routes.length || 0 > 1) {
                             const currenScreen = state?.routes[state?.routes.length - 1]
                             routeName = currenScreen?.name
                         }
-                        console.log("tabIndex-%i,--:%o---routeName:%s", tabIndex, navigationOptions, routeName)
-                        const newOptions = navigationOptions || {}
+                        console.log("tabIndex-%i,---routeName:%s", tabIndex, routeName)
                         // this.setState({ tabNavigationOptions: { ...newOptions } })
                         console.log("state:%o", state)
                     }} onUnhandledAction={(action) => {
