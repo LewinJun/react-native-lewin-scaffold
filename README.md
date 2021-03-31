@@ -3,11 +3,15 @@
 
 
 
-> 目前这个脚手架市场上已有app使用，
-第一框应用：安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html  iOS应用商店 app链接: https://apps.apple.com/cn/app/%E4%BA%AB%E5%A4%9F%E8%9C%82%E5%BA%97/id1506141299
+> 目前这个脚手架市场上已有app使用
 
-第二款应用： https://www.techdeal.cn/mobile-download  iOS app store： https://apps.apple.com/us/app/techdeal/id1525133677
-第三款应用: 安卓下载链接 https://cat-pay.oss-cn-beijing.aliyuncs.com/app/hellomimi_sign.apk iOS appstore: https://apps.apple.com/cn/app/%E5%93%88%E5%96%BD%E5%92%AA%E5%92%AA/id1547972757
+1. 第一框应用：安卓和iOS下载安装链接  http://shareapi.yunxglife.com/download/download.html  iOS应用商店 app链接: https://apps.apple.com/cn/app/%E4%BA%AB%E5%A4%9F%E8%9C%82%E5%BA%97/id1506141299
+
+2. 第二款应用： https://www.techdeal.cn/mobile-download 安卓: https://techdeal.oss-cn-shanghai.aliyuncs.com/app/techdeal-1.4.apk  iOS app store： https://apps.apple.com/us/app/techdeal/id1525133677
+
+
+3. 第三款应用: 安卓下载链接 https://cat-pay.oss-cn-beijing.aliyuncs.com/app/hellomimi_sign.apk iOS appstore: https://apps.apple.com/cn/app/%E5%93%88%E5%96%BD%E5%92%AA%E5%92%AA/id1547972757
+
 
 > 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
 
