@@ -26,7 +26,7 @@
 devDependencies
 "code-push-package-sync": "git+https://gitee.com/Lewin_Li/code-push-package-sync.git#v1.1.0",
 
-js源码二次更改
+js源码二次更改，和devDependencies/dependencies同级
 
 "resolutions": {
     "code-push": "git+https://gitee.com/Lewin_Li/code-push.git#v1.0.0"
