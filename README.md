@@ -15,10 +15,171 @@
 3. 第三款应用哈喽咪咪 : 安卓下载链接 https://cat-pay.oss-cn-beijing.aliyuncs.com/app/hellomimi_sign.apk iOS appstore: https://apps.apple.com/cn/app/%E5%93%88%E5%96%BD%E5%92%AA%E5%92%AA/id1547972757
 > 宠物一站式上门服务，宠物社交(视频，图片)，微信和支付宝支付，本机号码一键登录，微信分享(如有人需要可以联系我，我可以提供RN集成版出来)，原生Android+iOS+React Native+React(umi)三种混合开发
 
-4. 第四款应用已开发完毕，还没上架到市场，此款和上面的三款有点不一样，第四款是原有的原生接入此RN脚手架，安卓(kotlin+java),iOS(OC+swift),接入也有一定的经验，如有兴趣可以找我聊
+4. 第四款应用已开发完毕，此款和上面的三款有点不一样，第四款是原有的原生接入此RN脚手架，安卓(kotlin+java),iOS(OC+swift),接入也有一定的经验，如有兴趣可以找我聊，下载链接 https://app.doctopia.com.cn/
 
-## 热更使用的是codepush ，服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。需要的可以提issues 帮助给我
+## 热更使用的是codepush 
 
+> 服务器在微软国外,下载bundle包可能会比较慢，我这边有解决方案，修改codepush源码可以把bundle包放到自己的oss上，速度非常可观。以下是集成步骤，默认用的oss,如果用其它的可以自行修改打包脚本code-push-package-sync
+
+> 1. 开源地址打包脚本，package.json
+
+devDependencies
+"code-push-package-sync": "git+https://gitee.com/Lewin_Li/code-push-package-sync.git#v1.1.0",
+js源码二次更改
+"resolutions": {
+    "code-push": "git+https://gitee.com/Lewin_Li/code-push.git#v1.0.0"
+  },
+  
+ > 2. 打包脚本
+
+```shell
+#!/bin/sh
+# 部署应用
+DEPLOY_APP_IOS="codepushapp名称"
+DEPLOY_APP_ANDROID="codepushapp名称"
+ALIYUN_OSS_PACKAGE_PREFIX="阿里云文件路径"
+ALIYUN_OSS_ENDPOINT="阿里云"
+ALIYUN_OSS_BUCKET="阿里云"
+# 部署平台 All | iOS | Android
+DEPLOY_PLATFORM="All"
+# 部署类型 Staging | Production
+DEPLOY_TYPE="Staging"
+# 部署版本
+DEPLOY_VERSION=$(npx -c 'echo "$npm_package_version"' | grep -Eo '[0-9]+\.[0-9]+')
+# 部署描述
+DEPLOY_DESC=""
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do key="$1"
+case $key in
+  -h|--help)
+  echo "\
+codepush [...options] [description]
+
+example:
+bash ./codepush -s '[\"更新信息\",\"可以包含空 格\"]'
+
+options
+-s --staging           staging env
+-p --prod --production production env
+-v --version X.X       version
+-i --ios               ios only
+-a --android           android only
+-c --clean             clean history
+-h --help              help"
+  exit
+  ;;
+  -s|--staging)
+  DEPLOY_TYPE="Staging"
+  #自己的环境配置可以自行去掉
+  cp ./config-dev.ts ./src/configs/index.ts
+  shift
+  ;;
+  -p|--prod|--production)
+  DEPLOY_TYPE="Production"
+  cp ./config-pro.ts ./src/configs/index.ts
+  shift
+  ;;
+  -v|--version)
+  DEPLOY_VERSION="$2"
+  shift
+  shift
+  ;;
+  -i|--ios)
+  DEPLOY_PLATFORM="iOS"
+  shift
+  ;;
+  -a|--android)
+  DEPLOY_PLATFORM="Android"
+  shift
+  ;;
+  -c|--clean)
+  CLEAN=1
+  shift
+  ;;
+  *)
+  POSITIONAL+=("$1")
+  shift
+  ;;
+esac
+done
+set -- "${POSITIONAL[@]}"
+DEPLOY_DESC="$1"
+
+COMMAND=""
+
+if [[ $CLEAN -eq 1 ]]; then
+  # clean history
+  if [[ $DEPLOY_PLATFORM == "iOS" ]]; then
+    COMMAND="code-push deployment clear ${DEPLOY_APP_IOS} ${DEPLOY_TYPE}"
+  elif [[ $DEPLOY_PLATFORM == "Android" ]]; then
+    COMMAND="code-push deployment clear ${DEPLOY_APP_ANDROID} ${DEPLOY_TYPE}"
+  elif [[ $DEPLOY_PLATFORM == "All" ]]; then
+    COMMAND="\
+code-push deployment clear ${DEPLOY_APP_IOS} ${DEPLOY_TYPE} &&
+code-push deployment clear ${DEPLOY_APP_ANDROID} ${DEPLOY_TYPE}"
+  fi
+else
+  ENV="ALIYUN_OSS_ACCESS_KEY_ID=你的 \
+ALIYUN_OSS_ACCESS_KEY_SECRET=你的 \
+ALIYUN_OSS_REGION=oss-cn-shanghai \
+ALIYUN_OSS_BUCKET=${ALIYUN_OSS_BUCKET} \
+ALIYUN_OSS_CNAME=true \
+ALIYUN_OSS_ENDPOINT=${ALIYUN_OSS_ENDPOINT} \
+ALIYUN_OSS_PACKAGE_PREFIX=${ALIYUN_OSS_PACKAGE_PREFIX}"
+
+  # deploy
+  if [[ $DEPLOY_PLATFORM == "iOS" ]]; then
+    COMMAND="${ENV} \
+yarn run code-push-package-sync release ${DEPLOY_APP_IOS} \
+--platform ios \
+--deployment ${DEPLOY_TYPE} \
+--targetVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}'"
+  elif [[ $DEPLOY_PLATFORM == "Android" ]]; then
+    COMMAND="${ENV} \
+yarn run code-push-package-sync release ${DEPLOY_APP_ANDROID} \
+--platform android \
+--deployment ${DEPLOY_TYPE} \
+--targetVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}'"
+  elif [[ $DEPLOY_PLATFORM == "All" ]]; then
+    COMMAND="export ${ENV} && \
+yarn run code-push-package-sync release ${DEPLOY_APP_IOS} \
+--platform ios \
+--deployment ${DEPLOY_TYPE} \
+--targetVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}' &&
+yarn run code-push-package-sync release ${DEPLOY_APP_ANDROID} \
+--platform android \
+--deployment ${DEPLOY_TYPE} \
+--targetVersion ${DEPLOY_VERSION} \
+--description '${DEPLOY_DESC}'"
+  fi
+fi
+
+echo -e "\033[0;31m${COMMAND}\033[0m"
+
+# read -p "确认执行?(y/n): " -n 1 -r
+# printf "\n"
+# if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+#   [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+# fi
+
+bash -c "$COMMAND"
+
+```
+
+> 3. 配置global,可以在codepush检查更新之前赋值
+
+```javascript
+global.CustomCodePushRemotePackageHook = function (remotePackage) {
+    // codePushConfig.download_url_prefix 你自己的文件主目录  如 https://oss-xxx/codepush/HFGHHGDGDG6787HJKHGFGH8798  HFGHHGDGDG6787HJKHGFGH8798是remotePackage.packageHash
+    remotePackage.downloadUrl = `${codePushConfig.download_url_prefix}/${remotePackage.packageHash}`;
+    // console.log("remotePackage.downloadUrl:%s", remotePackage.downloadUrl)
+};
+
+```
 
 
 > 相同网络条件，1.1MB oss下载1s内(测试的这个是0.6s)，而从codepush服务器下载 时间在 10s以上
